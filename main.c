@@ -2,6 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+const char *porte[] = {
+    "CHICO",
+    "MEDIANO",
+    "GRANDE"
+};
+
+const char *genero[] = {
+    "MACHO",
+    "HEMBRA"
+};
+
 typedef enum
 {
     CHICO,
@@ -73,15 +84,22 @@ typedef struct
     char direccion[35]
 } Adoptante;
 
+
 ///prototipados
 int mostrarMenuPrincipal();
 void mostrarMenuAdmin();
 void mostrarMenuAdoptante();
+Solicitud cargarSolicitudSimple();
+Perrito cargarPerrito();
+void mostrarPerrito(Perrito perri);
 
 int main()
 {
     system("color 0B");
-    int opcion = mostrarMenuPrincipal();
+
+    Perrito perri = cargarPerrito();
+    mostrarPerrito(perri);
+    /*int opcion = mostrarMenuPrincipal();
 
 
     switch(opcion){
@@ -99,7 +117,7 @@ int main()
             printf("\n");
             mostrarMenuPrincipal();
             break;
-    }
+    }*/
 
     return 0;
 }
@@ -147,8 +165,77 @@ void cargarSolicitud(char nombreArchivo[]){
     }
 }
 
-Solicitud cargarSolicitudSimple(){
+Solicitud cargarSolicitudSimple()
+{
     Solicitud aux;
 
+    printf("Cargue el ID del perrito: ");
+    scanf("%d", &aux.idPerrito);
+    fflush(stdin);
+    printf("Cargue nombre del solicitante: ");
+    gets(aux.solicitante);
+
+    printf("Ingrese su email: ");
+    gets(aux.email);
+
+    printf("Ingrese su Telefono: ");
+    gets(aux.tel);
+
     return aux;
+}
+
+Perrito cargarPerrito()
+{
+    Perrito aux;
+    int op;
+    printf("Cargue el ID del perrito: ");
+    scanf("%d", &aux.idPerrito);
+    printf("Cargue la edad del perrito: ");
+    scanf("%d", &aux.edad);
+    getchar();
+    printf("Cargue el nombre del perrito: ");
+    gets(aux.nombre);
+    printf("Cargue la raza del perrito: ");
+    gets(aux.raza);
+    printf("Cargue fecha actual perrito: ");
+    gets(aux.fechaIngreso);
+    do{
+        printf("Seleccione el porte (0-Chico, 1-Mediano, 2-Grande): ");
+        scanf("%d", &op);
+        if(op <0 || op>2){
+            printf("\nNo es una opcion valida,vuelva a intentarlo");
+        }
+    }while(op <0 || op>2);
+    aux.porte = op;
+
+    do{
+        printf("Seleccione el genero (0-Macho, 1-Hembra): ");
+        scanf("%d", &op);
+        if(op <0 || op>1){
+            printf("\nNo es una opcion valida,vuelva a intentarlo");
+        }
+    }while(op <0 || op>1);
+    aux.genero = op;
+
+    do{
+       printf("Seleccione el temperamento (0-Calmado, 1-Jugueton, 2-Ansioso, 3-Agresivo, 4-Sociable): ");
+       scanf("%d", &op);
+       if(op <0 || op>4){
+            printf("\nNo es una opcion valida,vuelva a intentarlo");
+       }
+    }while(op <0 || op>4);
+    aux.temperamento = op;
+
+    aux.estado = DISPONIBLE;
+
+    return aux;
+}
+
+void mostrarPerrito(Perrito perri){
+        printf("\n ID: %i", perri.idPerrito);
+        printf("\nNombre: %s", perri.nombre);
+        printf("\n Edad: %i", perri.edad);
+        printf("\n %s", perri.genero);
+        printf("\n Raza: %s", perri.raza);
+        printf("\nPorte: %s", porte[perri.porte]);
 }
