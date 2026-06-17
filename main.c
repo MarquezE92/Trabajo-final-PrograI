@@ -235,7 +235,7 @@ void mostrarPerrito(Perrito perri){
         printf("\n ID: %i", perri.idPerrito);
         printf("\nNombre: %s", perri.nombre);
         printf("\n Edad: %i", perri.edad);
-        printf("\n %s", perri.genero);
+        printf("\n %s", genero[perri.genero]);
         printf("\n Raza: %s", perri.raza);
         printf("\nPorte: %s", porte[perri.porte]);
 }
