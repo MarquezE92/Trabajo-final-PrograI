@@ -1,12 +1,5 @@
 #include "adopciones.h"
 
-///A TENER EN CUENTA (POSIBLE MODIFICACION):
-/* remove(nombre) — borra un archivo del disco. como mandar a papelera pero sin posibilidad de recuperarlo.
-Recibe el nombre del archivo como string.
-rename(nombreViejo, nombreNuevo) — cambia el nombre de un archivo.
-Recibe el nombre actual y el nombre nuevo, ambos como strings.*/
-
-
 /// reg adop: busca perri y adoptante en arch, crea reg de adop y lo guarda.
 void registrarAdopcion(char archPerritos[], char archAdoptantes[], char archAdopciones[]) {
     int idPerrito, idAdoptante;
