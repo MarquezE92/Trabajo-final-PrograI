@@ -189,7 +189,7 @@ void mostrarMenuAdoptante(Perrito lista[], int validos, char archivoSolicitudes[
             printf("\n--- LISTADO COMPLETO DE PERRITOS ---");
             mostrarListadoPerritosRecursivo(lista, validos, 0);
 
-            printf("\n¿Desea ver el detalle de algun perrito? Ingrese el ID (0 para volver):\n");
+            printf("\nï¿½Desea ver el detalle de algun perrito? Ingrese el ID (0 para volver):\n");
             scanf("%i", &idBuscar);
             if(idBuscar != 0)
             {
