@@ -42,6 +42,9 @@
 //    HEMBRA
 //} Genero;
 
+const char ARCHIVO_PERRITOS[] = "perrito.bin";
+//const char ARCHIVO_ADOPTANTES[] = "adoptantes.bin";
+
 typedef struct
 {
     int idPerrito;
@@ -99,12 +102,7 @@ int main()
 {
     system("color 0B");
 
- //cargarPerritoArchivo("perrito.bin");
- //cargarPerritoArchivo("perrito.bin");
- mostrarTodosPerritos("perrito.bin");
- //cargaMasivaPerritos("perrito.bin");
-//filtrarPorTemperamento("perrito.bin", 1);
-menuGestionPerritos("perrito.bin");
+menuPerritosGeneral(ARCHIVO_PERRITOS);
 
 
     /*int opcion = mostrarMenuPrincipal();
