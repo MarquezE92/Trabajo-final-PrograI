@@ -1,45 +1,46 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "perritos.h"
 
-const char *porte[] = {
-    "CHICO",
-    "MEDIANO",
-    "GRANDE"
-};
+//const char *porte[] = {
+//    "CHICO",
+//    "MEDIANO",
+//    "GRANDE"
+//};
 
-const char *genero[] = {
-    "MACHO",
-    "HEMBRA"
-};
+//const char *genero[] = {
+//    "MACHO",
+//    "HEMBRA"
+//};
 
-typedef enum
-{
-    CHICO,
-    MEDIANO,
-    GRANDE
-} Porte;
+//typedef enum
+//{
+//    CHICO,
+//    MEDIANO,
+//    GRANDE
+//} Porte;
 
-typedef enum
-{
-    DISPONIBLE,
-    ADOPTADO
-} Estado;
-
-typedef enum
-{
-    CALMADO,
-    JUGUETON,
-    ANSIOSO,
-    AGRESIVO,
-    SOCIABLE
-} Temperamento;
-
-typedef enum
-{
-    MACHO,
-    HEMBRA
-} Genero;
+//typedef enum
+//{
+//    DISPONIBLE,
+//    ADOPTADO
+//} Estado;
+//
+//typedef enum
+//{
+//    CALMADO,
+//    JUGUETON,
+//    ANSIOSO,
+//    AGRESIVO,
+//    SOCIABLE
+//} Temperamento;
+//
+//typedef enum
+//{
+//    MACHO,
+//    HEMBRA
+//} Genero;
 
 typedef struct
 {
@@ -49,23 +50,23 @@ typedef struct
     char tel[12];
 } Solicitud;
 
-typedef struct
-{
-    int idPerrito;
-    char nombre[35];
-    int edad;
-    char raza[35];
-    Porte porte;
-    Estado estado;
-    Temperamento temperamento;
-    Genero genero;
-    char fechaIngreso[10];
-} Perrito;
+//typedef struct
+//{
+//    int idPerrito;
+//    char nombre[35];
+//    int edad;
+//    char raza[35];
+//    Porte porte;
+//    Estado estado;
+//    Temperamento temperamento;
+//    Genero genero;
+//    char fechaIngreso[10];
+//} Perrito;
 
 typedef struct
 {
     char fecha[10];
-    char comentario[125]
+    char comentario[125];
 } Observacion;
 
 typedef struct
@@ -81,7 +82,7 @@ typedef struct
     char nombre[35];
     char email[35];
     char tel[12];
-    char direccion[35]
+    char direccion[35];
 } Adoptante;
 
 
@@ -89,16 +90,23 @@ typedef struct
 int mostrarMenuPrincipal();
 void mostrarMenuAdmin();
 void mostrarMenuAdoptante();
+void cargarSolicitud(char nombreArchivo[]);
 Solicitud cargarSolicitudSimple();
-Perrito cargarPerrito();
-void mostrarPerrito(Perrito perri);
+//Perrito cargarPerrito();
+//void mostrarPerrito(Perrito perri);
 
 int main()
 {
     system("color 0B");
 
-    Perrito perri = cargarPerrito();
-    mostrarPerrito(perri);
+ //cargarPerritoArchivo("perrito.bin");
+ //cargarPerritoArchivo("perrito.bin");
+ mostrarTodosPerritos("perrito.bin");
+ //cargaMasivaPerritos("perrito.bin");
+//filtrarPorTemperamento("perrito.bin", 1);
+menuGestionPerritos("perrito.bin");
+
+
     /*int opcion = mostrarMenuPrincipal();
 
 
@@ -123,10 +131,12 @@ int main()
 }
 
 ///funciones
-int mostrarMenuPrincipal(){
+int mostrarMenuPrincipal()
+{
     int opcion;
 
-    do{
+    do
+    {
         printf("+-----------------------------------------+");
         printf("\n| \t 1.- Soy Admin                    |");
         printf("\n| \t 2.- Quiero adoptar               |");
@@ -136,29 +146,37 @@ int mostrarMenuPrincipal(){
         printf("\n Elige la opcion correcta: ");
         scanf("%i", &opcion);
 
-        if(opcion > 3 && opcion < 0){
-           printf("\n %i No es una opcion valida", opcion);
+        if(opcion > 3 && opcion < 0)
+        {
+            printf("\n %i No es una opcion valida", opcion);
         }
-    }while(opcion > 3 && opcion < 0);
+    }
+    while(opcion > 3 && opcion < 0);
     system("cls");
     return opcion;
 
 }
 
-void mostrarMenuAdmin(){
+void mostrarMenuAdmin()
+{
     printf("\n Muestro el menu del admin");
 }
 
-void mostrarMenuAdoptante(){
+void mostrarMenuAdoptante()
+{
     printf("\n Muestro el menu del adoptante");
 }
 
-void cargarSolicitud(char nombreArchivo[]){
+void cargarSolicitud(char nombreArchivo[])
+{
     Solicitud aux;
     FILE *pf= fopen(nombreArchivo,  "ab");
-    if(pf == NULL){
+    if(pf == NULL)
+    {
         printf("\nNo se pudo abrir el archivo para cargar la solicitud");
-    }else{
+    }
+    else
+    {
         aux = cargarSolicitudSimple();
         fwrite(&aux, sizeof(Solicitud),1, pf);
         fclose(pf);
@@ -184,58 +202,58 @@ Solicitud cargarSolicitudSimple()
     return aux;
 }
 
-Perrito cargarPerrito()
-{
-    Perrito aux;
-    int op;
-    printf("Cargue el ID del perrito: ");
-    scanf("%d", &aux.idPerrito);
-    printf("Cargue la edad del perrito: ");
-    scanf("%d", &aux.edad);
-    getchar();
-    printf("Cargue el nombre del perrito: ");
-    gets(aux.nombre);
-    printf("Cargue la raza del perrito: ");
-    gets(aux.raza);
-    printf("Cargue fecha actual perrito: ");
-    gets(aux.fechaIngreso);
-    do{
-        printf("Seleccione el porte (0-Chico, 1-Mediano, 2-Grande): ");
-        scanf("%d", &op);
-        if(op <0 || op>2){
-            printf("\nNo es una opcion valida,vuelva a intentarlo");
-        }
-    }while(op <0 || op>2);
-    aux.porte = op;
-
-    do{
-        printf("Seleccione el genero (0-Macho, 1-Hembra): ");
-        scanf("%d", &op);
-        if(op <0 || op>1){
-            printf("\nNo es una opcion valida,vuelva a intentarlo");
-        }
-    }while(op <0 || op>1);
-    aux.genero = op;
-
-    do{
-       printf("Seleccione el temperamento (0-Calmado, 1-Jugueton, 2-Ansioso, 3-Agresivo, 4-Sociable): ");
-       scanf("%d", &op);
-       if(op <0 || op>4){
-            printf("\nNo es una opcion valida,vuelva a intentarlo");
-       }
-    }while(op <0 || op>4);
-    aux.temperamento = op;
-
-    aux.estado = DISPONIBLE;
-
-    return aux;
-}
-
-void mostrarPerrito(Perrito perri){
-        printf("\n ID: %i", perri.idPerrito);
-        printf("\nNombre: %s", perri.nombre);
-        printf("\n Edad: %i", perri.edad);
-        printf("\n %s", perri.genero);
-        printf("\n Raza: %s", perri.raza);
-        printf("\nPorte: %s", porte[perri.porte]);
-}
+//Perrito cargarPerrito()
+//{
+//    Perrito aux;
+//    int op;
+//    printf("Cargue el ID del perrito: ");
+//    scanf("%d", &aux.idPerrito);
+//    printf("Cargue la edad del perrito: ");
+//    scanf("%d", &aux.edad);
+//    getchar();
+//    printf("Cargue el nombre del perrito: ");
+//    gets(aux.nombre);
+//    printf("Cargue la raza del perrito: ");
+//    gets(aux.raza);
+//    printf("Cargue fecha actual perrito: ");
+//    gets(aux.fechaIngreso);
+//    do{
+//        printf("Seleccione el porte (0-Chico, 1-Mediano, 2-Grande): ");
+//        scanf("%d", &op);
+//        if(op <0 || op>2){
+//            printf("\nNo es una opcion valida,vuelva a intentarlo");
+//        }
+//    }while(op <0 || op>2);
+//    aux.porte = op;
+//
+//    do{
+//        printf("Seleccione el genero (0-Macho, 1-Hembra): ");
+//        scanf("%d", &op);
+//        if(op <0 || op>1){
+//            printf("\nNo es una opcion valida,vuelva a intentarlo");
+//        }
+//    }while(op <0 || op>1);
+//    aux.genero = op;
+//
+//    do{
+//       printf("Seleccione el temperamento (0-Calmado, 1-Jugueton, 2-Ansioso, 3-Agresivo, 4-Sociable): ");
+//       scanf("%d", &op);
+//       if(op <0 || op>4){
+//            printf("\nNo es una opcion valida,vuelva a intentarlo");
+//       }
+//    }while(op <0 || op>4);
+//    aux.temperamento = op;
+//
+//    aux.estado = DISPONIBLE;
+//
+//    return aux;
+//}
+//
+//void mostrarPerrito(Perrito perri){
+//        printf("\n ID: %i", perri.idPerrito);
+//        printf("\nNombre: %s", perri.nombre);
+//        printf("\n Edad: %i", perri.edad);
+//        printf("\n %s", perri.genero);
+//        printf("\n Raza: %s", perri.raza);
+//        printf("\nPorte: %s", porte[perri.porte]);
+//}
