@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "perritos.h"
+#include "adminperritos.h"
 
 const char *porte[] =
 {

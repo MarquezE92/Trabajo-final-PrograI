@@ -5,3 +5,18 @@
 	<string.h>
 	<stdlib.h>
 
+1781978290 source:c:\users\pabie\desktop\trabajo-final-prograi\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"perritos.h"
+
+1781987138 source:c:\users\pabie\desktop\trabajo-final-prograi\perritos.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"perritos.h"
+
+1781984936 c:\users\pabie\desktop\trabajo-final-prograi\perritos.h
+
