@@ -3,34 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include "adminperritos.h"
-
-const char *porte[] =
-{
-    "CHICO",
-    "MEDIANO",
-    "GRANDE"
-};
-
-const char *genero[] =
-{
-    "MACHO",
-    "HEMBRA"
-};
-
-const char *temperamento[] =
-{
-    "CALMADO",
-    "JUGUETON",
-    "ANSIOSO",
-    "AGRESIVO",
-    "SOCIABLE"
-};
-
-const char *estado[] =
-{
-    "DISPONIBLE",
-    "ADOPTADO"
-};
+#include "menuGeneral.h"
 
 
 void menuPerritosGeneral(char nombreArchivo[])
@@ -98,7 +71,7 @@ void menuPerritosGeneral(char nombreArchivo[])
 }
 
 
-Perrito cargarPerrito()
+Perrito cargarPerri()
 {
     Perrito aux;
     int op;
@@ -167,10 +140,10 @@ void mostrarPerrito(Perrito perri)
     printf("\nEdad: %d", perri.edad);
     printf("\nNombre: %s", perri.nombre);
     printf("\nRaza: %s", perri.raza);
-    printf("\nPorte: %s", porte[perri.porte]);
-    printf("\nGenero: %s", genero[perri.genero]);
-    printf("\nTemperamento: %s", temperamento[perri.temperamento]);
-    printf("\nEstado: %s", estado[perri.estado]);
+    printf("\nPorte: %s", porteTexto[perri.porte]);
+    printf("\nGenero: %s", generoTexto[perri.genero]);
+    printf("\nTemperamento: %s", temperamentoTexto[perri.temperamento]);
+    printf("\nEstado: %s", estadoTexto[perri.estado]);
     printf("\nFecha ingreso: %s", perri.fechaIngreso);
     printf("\n==============================\n");
 }
@@ -204,7 +177,7 @@ void cargarPerritoArchivo(char nombreArchivo[])
     }
     else
     {
-        aux = cargarPerrito();
+        aux = cargarPerri();
         fwrite(&aux, sizeof(Perrito),1, pf);
         fclose(pf);
     }
@@ -315,7 +288,6 @@ void menuFiltro(char nombreArchivo[])
             printf("\n1 - HEMBRA");
             printf("\nSeleccione genero: ");
             scanf("%d", &gen);
-
             filtrarPorGenero(nombreArchivo, gen, &vecIDs, &validos);
             menuGestionPerritos(nombreArchivo, vecIDs, validos);
             break;
@@ -324,7 +296,6 @@ void menuFiltro(char nombreArchivo[])
 
             printf("\nIngrese edad a buscar: ");
             scanf("%d", &edad);
-
             filtrarPorEdad(nombreArchivo, edad, &vecIDs, &validos);
             menuGestionPerritos(nombreArchivo, vecIDs,  validos);
             break;
@@ -338,7 +309,6 @@ void menuFiltro(char nombreArchivo[])
             printf("\n4 - SOCIABLE");
             printf("\nSeleccione temperamento: ");
             scanf("%d", &temp);
-
             filtrarPorTemperamento(nombreArchivo, temp, &vecIDs,&validos);
             menuGestionPerritos(nombreArchivo, vecIDs, validos);
             break;
@@ -484,14 +454,14 @@ void menuGestionPerritos(char nombreArchivo[], int vecIDs[], int validos)
     int opcion;
     int id;
 
-  printf("+-----------------------------------------+");
-printf("\n| \t 1.- Modificar Perrito           |");
-printf("\n| \t 2.- Eliminar Perrito            |");
-printf("\n| \t 3.- Mejor me vuelvo             |");
-printf("\n+-----------------------------------------+");
+    printf("+-----------------------------------------+");
+    printf("\n| \t 1.- Modificar Perrito           |");
+    printf("\n| \t 2.- Eliminar Perrito            |");
+    printf("\n| \t 3.- Mejor me vuelvo             |");
+    printf("\n+-----------------------------------------+");
 
-printf("\nElige la opcion correcta: ");
-scanf("%d", &opcion);
+    printf("\nElige la opcion correcta: ");
+    scanf("%d", &opcion);
 
     switch(opcion)
     {
@@ -530,6 +500,7 @@ scanf("%d", &opcion);
 
         }
         while(!validarID(vecIDs, validos, id));
+        eliminarPerrito(nombreArchivo, id);
         break;
 
     case 3:
@@ -567,7 +538,7 @@ void modificarPerrito(char nombreArchivo[], int idBuscado)
 
                 printf("\nIngrese los nuevos datos:");
                 printf("\n");
-                aux = cargarPerrito();
+                aux = cargarPerri();
 
                 aux.idPerrito = idBuscado;
 

@@ -5,18 +5,58 @@
 	<string.h>
 	<stdlib.h>
 
-1781978290 source:c:\users\pabie\desktop\trabajo-final-prograi\main.c
+1782079630 source:c:\users\pabie\desktop\trabajo-final-prograi\main.c
+	<stdio.h>
+	<stdlib.h>
+	"menuGeneral.h"
+
+1782078802 source:c:\users\pabie\desktop\trabajo-final-prograi\perritos.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	"menuGeneral.h"
 	"perritos.h"
 
-1781987138 source:c:\users\pabie\desktop\trabajo-final-prograi\perritos.c
+1782078802 c:\users\pabie\desktop\trabajo-final-prograi\perritos.h
+	"menuGeneral.h"
+
+1782079198 source:c:\users\pabie\desktop\trabajo-final-prograi\adminperritos.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
-	"perritos.h"
+	"adminperritos.h"
+	"menuGeneral.h"
 
-1781984936 c:\users\pabie\desktop\trabajo-final-prograi\perritos.h
+1782079177 c:\users\pabie\desktop\trabajo-final-prograi\adminperritos.h
+	"menuGeneral.h"
+
+1782079518 c:\users\pabie\desktop\trabajo-final-prograi\menugeneral.h
+
+1782078163 source:c:\users\pabie\desktop\trabajo-final-prograi\adopciones.c
+	"menuGeneral.h"
+	"adopciones.h"
+
+1782078163 c:\users\pabie\desktop\trabajo-final-prograi\adopciones.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"menuGeneral.h"
+
+1782078434 source:c:\users\pabie\desktop\trabajo-final-prograi\adoptantes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	"adoptantes.h"
+
+1782077582 c:\users\pabie\desktop\trabajo-final-prograi\adoptantes.h
+	"menuGeneral.h"
+
+1782078994 source:c:\users\pabie\desktop\trabajo-final-prograi\menugeneral.c
+	<stdio.h>
+	<stdlib.h>
+	"menuGeneral.h"
+	"adminperritos.h"
+	"adoptantes.h"
 
