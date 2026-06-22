@@ -48,6 +48,29 @@
 		<Unit filename="perritos.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="adminperritos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="adminperritos.h" />
+		<Unit filename="adopciones.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="adopciones.h" />
+		<Unit filename="adoptantes.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="adoptantes.h" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="menuGeneral.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="menuGeneral.h" />
+		<Unit filename="perritos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="perritos.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

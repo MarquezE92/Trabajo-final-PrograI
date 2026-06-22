@@ -1,4 +1,5 @@
 #include "adoptantes.h"
+#include <stdio.h>
 #include <unistd.h>
 #include <string.h>
 
@@ -110,7 +111,7 @@ int buscarPosicionPorId(char nombreArchivo[], int idAdoptante){
         printf("\nNo se pudo abrir el archivo para buscar al adoptante");
     }else{
         while(fread(&aux, sizeof(Adoptante),1, pf)>0 && !encontrado){
-            if(aux.idAdoptante == id){
+            if(aux.idAdoptante == idAdoptante){
                 resultado = pos;
                 encontrado = 1;
             }
@@ -136,7 +137,8 @@ void eliminarAdoptante(char nombreArchivo[], int idAdoptante){
         }
         fseek(pf, 0, SEEK_END);
         long tam_actual = ftell(pf);
-        ftruncate(pf, tam_actual - sizeof(Adoptante));
+        int fd = fileno(pf);
+        ftruncate(fd, tam_actual - sizeof(Adoptante));
         fclose(pf);
     }
 }
@@ -145,7 +147,7 @@ Adoptante modificarAdoptante(Adoptante adoptante){
     char opcion = 'n';
     char buffer[35], bufferTel[12];
 
-    printf("\n¿Desea modificar el nombre de pila del adoptante? (s/n): ");
+    printf("\nï¿½Desea modificar el nombre de pila del adoptante? (s/n): ");
     scanf(" %c", &opcion);
 
     if (opcion == 's' || opcion == 'S')
@@ -161,7 +163,7 @@ Adoptante modificarAdoptante(Adoptante adoptante){
 
 
     }
-    printf("\n¿Desea modificar el email del adoptante? (s/n): ");
+    printf("\nï¿½Desea modificar el email del adoptante? (s/n): ");
     scanf(" %c", &opcion);
 
     if (opcion == 's' || opcion == 'S')
@@ -178,7 +180,7 @@ Adoptante modificarAdoptante(Adoptante adoptante){
 
     }
 
-    printf("\n¿Desea modificar el telefono del adoptante? (s/n): ");
+    printf("\nÂ¿Desea modificar el telefono del adoptante? (s/n): ");
     scanf(" %c", &opcion);
 
     if (opcion == 's' || opcion == 'S')
@@ -195,7 +197,7 @@ Adoptante modificarAdoptante(Adoptante adoptante){
 
     }
 
-    printf("\n¿Desea modificar la dirección del adoptante? (s/n): ");
+    printf("\nÂ¿Desea modificar la direcciï¿½n del adoptante? (s/n): ");
     scanf(" %c", &opcion);
 
     if (opcion == 's' || opcion == 'S')
@@ -207,16 +209,16 @@ Adoptante modificarAdoptante(Adoptante adoptante){
                 printf("\nError: La direccion excede la cantidad de caracteres permitidos.");
             }
         }while(strlen((buffer))>= sizeof(adoptante.direccion));
-        strcpy(adoptante.direccion, buffer)
+        strcpy(adoptante.direccion, buffer);
 
 
     }
     return adoptante;
 }
 
-void modificarRegistroAdoptante(char nombreArchivo, int posicion){
+void modificarRegistroAdoptante(char nombreArchivo[], int posicion){
     FILE *fp = fopen(nombreArchivo, "r+b");
-    Adoptatne aux;
+    Adoptante aux;
     if(fp == NULL){
         printf("\n No se puedo abrir el archivo para modificar un registro");
     }else{
@@ -226,7 +228,7 @@ void modificarRegistroAdoptante(char nombreArchivo, int posicion){
         }else{
         aux = modificarAdoptante(aux);
         fseek(fp, posicion * sizeof(Adoptante), SEEK_SET);
-        fwrite(&aux, sizeof(Adoptante), 1, fp
+        fwrite(&aux, sizeof(Adoptante), 1, fp);
         }
         fclose(fp);
     }

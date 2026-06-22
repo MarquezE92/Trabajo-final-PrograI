@@ -1,3 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "perritos.h"
+#include "menuGeneral.h"
+
 int mostrarMenuPrincipal()
 {
     int opcion;
@@ -55,7 +60,7 @@ void mostrarMenuAdoptante(Perrito lista[], int validos, char archivoSolicitudes[
             printf("\n--- LISTADO COMPLETO DE PERRITOS ---");
             mostrarListadoPerritosRecursivo(lista, validos, 0);
 
-            printf("\n ¿Desea ver el detalle de algun perrito? Ingrese el ID (0 para volver):\n");
+            printf("\n ï¿½Desea ver el detalle de algun perrito? Ingrese el ID (0 para volver):\n");
             scanf("%i", &idBuscar);
             if(idBuscar != 0)
             {
@@ -114,7 +119,7 @@ void mostrarMenuAdoptante(Perrito lista[], int validos, char archivoSolicitudes[
     }
     while(opcion != 0);
 }
-}
+
 
 void cargarSolicitud(char nombreArchivo[])
 {
@@ -238,7 +243,7 @@ void mostrarListadoPerritosRecursivo(Perrito lista[], int valido, int i)
         mostrarListadoPerritosRecursivo(lista, valido, i + 1);
     }
 
-
+}
 
     void filtrarPerritos(Perrito lista[], int validos)
     {
@@ -299,6 +304,8 @@ void mostrarListadoPerritosRecursivo(Perrito lista[], int valido, int i)
                 }
             }
             break;
+        default:
+            printf("\nNo se encontraron perritos con el criterio seleccionado.\n");
         }
-        if(i == 0) printf("\nNo se encontraron perritos con el criterio seleccionado.\n");
+
     }
