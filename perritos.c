@@ -122,7 +122,7 @@ void cargarSolicitud(char nombreArchivo[])
 Solicitud cargarSolicitudSimple()
 {
     Solicitud aux;
-
+ ///Agregar validaciones
     printf("Cargue el ID del perrito: ");
     scanf("%d", &aux.idPerrito);
     fflush(stdin);
