@@ -145,9 +145,9 @@ void eliminarAdoptante(char nombreArchivo[], int idAdoptante){
 
 Adoptante modificarAdoptante(Adoptante adoptante){
     char opcion = 'n';
-    char buffer[35], bufferTel[12];
+    char buffer[235], bufferTel[212];
 
-    printf("\n�Desea modificar el nombre de pila del adoptante? (s/n): ");
+    printf("\nDesea modificar el nombre de pila del adoptante? (s/n): ");
     scanf(" %c", &opcion);
 
     if (opcion == 's' || opcion == 'S')

@@ -9,5 +9,6 @@ void filtrarPerritos(Perrito lista[], int validos);
 void mostrarMenuAdoptante(Perrito lista[], int validos, char archivoSolicitudes[]);
 Solicitud cargarSolicitudSimple();
 void cargarSolicitud(char nombreArchivo[]);
+void mostrarInfoContacto();
 
 #endif // PERRITOS_H_INCLUDED

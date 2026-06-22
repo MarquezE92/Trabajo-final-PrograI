@@ -4,8 +4,8 @@
 #include "menuGeneral.h"
 #include "adminperritos.h"
 #include "adoptantes.h"
-//#include "adopciones.h"
-//#include "solicitudes.h"
+#include "adopciones.h"
+#include "perritos.h"
 
 const char *porteTexto[] =
 {
@@ -41,13 +41,17 @@ void menuPrincipal(const char archivoPerritos[],
                    const char archivoAdopciones[])
 {
     int opcion;
+    Perrito lista[15]= {};
 
     do
     {
         printf("+-----------------------------------------+");
-        printf("\n| \t 1.- Administrador              |");
-        printf("\n| \t 2.- Adoptante                 |");
-        printf("\n| \t 0.- Salir                     |");
+        printf("\n| Quien nos visita hoy?                   |");
+        printf("\n+-----------------------------------------+");
+        printf("\n| \t 1.- Administrador                |");
+        printf("\n| \t 2.- Adoptante                    |");
+        printf("\n| \t 3.- Perrito                      |");
+        printf("\n| \t 0.- Salir                        |");
         printf("\n+-----------------------------------------+");
 
         printf("\nElige la opcion correcta: ");
@@ -63,8 +67,11 @@ void menuPrincipal(const char archivoPerritos[],
             break;
 
         case 2:
-
-            printf("\nModulo Adoptante en construccion.\n");
+//Reemplazar con función que pase los elementos del archivo a un array
+            mostrarMenuAdoptante(lista, 0, archivoSolicitudes);
+            break;
+        case 3:
+            printf("\nLa suplantacion de identidad perruna en una ofensa grave. Su accionar ha sido reportado al consejo canino\n");
             system("pause");
             system("cls");
             break;
@@ -75,10 +82,10 @@ void menuPrincipal(const char archivoPerritos[],
             break;
 
         default:
-
             printf("\nOpcion invalida.\n");
             system("pause");
             system("cls");
+            getchar();
         }
 
     }

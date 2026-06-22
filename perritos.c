@@ -3,36 +3,6 @@
 #include "perritos.h"
 #include "menuGeneral.h"
 
-int mostrarMenuPrincipal()
-{
-    int opcion;
-
-    do
-    {
-        printf("+-----------------------------------------+");
-        printf("\n| \t 1.- Soy Admin                    |");
-        printf("\n| \t 2.- Quiero adoptar               |");
-        printf("\n| \t 3.- Soy un perrito               |");
-        printf("\n| \t 0.- Me arrepenti y me quiero ir  |");
-        printf("\n+-----------------------------------------+");
-        printf("\n Elige la opcion correcta: ");
-        scanf("%i", &opcion);
-
-        if(opcion > 3 && opcion < 0)
-        {
-            printf("\n %i No es una opcion valida", opcion);
-        }
-    }
-    while(opcion > 3 && opcion < 0);
-    system("cls");
-    return opcion;
-
-}
-
-void mostrarMenuAdmin()
-{
-    printf("\n Muestro el menu del admin");
-}
 
 void mostrarMenuAdoptante(Perrito lista[], int validos, char archivoSolicitudes[])
 {
@@ -42,25 +12,34 @@ void mostrarMenuAdoptante(Perrito lista[], int validos, char archivoSolicitudes[
 
     do
     {
-        printf("\n-----------------------------------------n");
-        printf("\n|            MENU ADOPTANTE             |\n");
-        printf("\n-----------------------------------------n");
-        printf("\n| 1.- Ver listado de perritos (Todos)   |\n");
-        printf("\n| 2.- Aplicar filtro                    |\n");
-        printf("\n| 3.- Solicitar adopcion                |\n");
-        printf("\n| 4.- Ver informacion de contacto       |\n");
-        printf("\n| 0.- Volver al Menu Principal          |\n");
+        printf("\n-----------------------------------------");
+        printf("\n|            MENU ADOPTANTE             |");
+        printf("\n-----------------------------------------");
+        printf("\n| 1.- Ver listado de perritos (Todos)   |");
+        printf("\n| 2.- Aplicar filtro                    |");
+        printf("\n| 3.- Solicitar adopcion                |");
+        printf("\n| 4.- Ver informacion de contacto       |");
+        printf("\n| 0.- Volver al Menu Principal          |");
         printf("\n-----------------------------------------\n");
-        printf("\n Elija una opcion:\n");
+        printf("\n Elija una opcion: ");
         scanf("%i", &opcion);
+        system("cls");
 
         switch(opcion)
         {
+
+        case 0:
+
+            printf("\nGuau! digo Chau...\n");
+            system("pause");
+            system("cls");
+            ///volver menu principal
+            break;
         case 1:
             printf("\n--- LISTADO COMPLETO DE PERRITOS ---");
             mostrarListadoPerritosRecursivo(lista, validos, 0);
 
-            printf("\n �Desea ver el detalle de algun perrito? Ingrese el ID (0 para volver):\n");
+            printf("\n Desea ver el detalle de algun perrito? Ingrese el ID (0 para volver):\n");
             scanf("%i", &idBuscar);
             if(idBuscar != 0)
             {
@@ -107,15 +86,18 @@ void mostrarMenuAdoptante(Perrito lista[], int validos, char archivoSolicitudes[
             break;
 
         case 4:
-            printf("\n-----------------------------------------\n");
-            printf("\n|     INFORMACION DE CONTACTO           |\n");
-            printf("\n-----------------------------------------\n");
-            printf("\n| Direccion:                            |\n");
-            printf("\n| Telefono:                             |\n");
-            printf("\n| Email:                                |\n");
-            printf("\n-----------------------------------------\n");
+            mostrarInfoContacto();
+            system("pause");
+            system("cls");
             break;
+        default:
+
+            printf("\nOpcion invalida.\n");
+            system("pause");
+            system("cls");
+
         }
+
     }
     while(opcion != 0);
 }
@@ -245,7 +227,7 @@ void mostrarListadoPerritosRecursivo(Perrito lista[], int valido, int i)
 
 }
 
-    void filtrarPerritos(Perrito lista[], int validos)
+void filtrarPerritos(Perrito lista[], int validos)
     {
         int opcion;
         int criterio;
@@ -309,3 +291,14 @@ void mostrarListadoPerritosRecursivo(Perrito lista[], int valido, int i)
         }
 
     }
+
+void mostrarInfoContacto(){
+    system("cls");
+    printf("\n--------------------------------------------+");
+    printf("\n|     INFORMACION DE CONTACTO               |");
+    printf("\n--------------------------------------------");
+    printf("\n| Direccion: Buque Pesquero Dorrego Nro 281 |");
+    printf("\n| Telefono: (0223) 480-1220                 |");
+    printf("\n| Email: perriAdopciones@mdp.utn.edu.ar     |");
+    printf("\n--------------------------------------------\n");
+}

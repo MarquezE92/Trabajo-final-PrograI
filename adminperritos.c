@@ -74,14 +74,29 @@ void menuPerritosGeneral(char nombreArchivo[])
 Perrito cargarPerri()
 {
     Perrito aux;
-    int op;
+    int op, auxCarga;
+    char buffer[235];
     printf("Cargue el ID del perrito: ");
     scanf("%d", &aux.idPerrito);
-    printf("Cargue la edad del perrito: ");
-    scanf("%d", &aux.edad);
-    getchar();
+    do{
+       printf("Cargue la edad del perrito: ");
+       scanf("%d", &auxCarga);
+       getchar();
+       if(auxCarga < 0 || auxCarga >30){
+        printf("\n Eso es imposible. ");
+       }
+    }while(auxCarga < 0 || auxCarga >30);
+    aux.edad = auxCarga;
+
+    do{
     printf("Cargue el nombre del perrito: ");
-    gets(aux.nombre);
+    fgets(buffer, sizeof(buffer),stdin);
+    if((strlen((buffer))>= 35) || (strlen((buffer)) < 2)){
+        printf("\nError: El nombre no es valido.");
+    }
+    }while(strlen((buffer))>= 35);
+    strcpy(aux.nombre, buffer);
+
     printf("Cargue la raza del perrito: ");
     gets(aux.raza);
     time_t t = time(NULL);
@@ -179,6 +194,8 @@ void cargarPerritoArchivo(char nombreArchivo[])
     {
         aux = cargarPerri();
         fwrite(&aux, sizeof(Perrito),1, pf);
+        printf("\nEl perrito se ha cargado exitosamente :D");
+        mostrarPerrito(aux);
         fclose(pf);
     }
 }

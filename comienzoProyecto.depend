@@ -65,7 +65,7 @@
 	"adminperritos.h"
 	"adoptantes.h"
 
-1782089463 source:c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\adminperritos.c
+1782164974 source:c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\adminperritos.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -78,38 +78,40 @@
 
 1782089463 c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\menugeneral.h
 
-1782082825 source:c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\adopciones.c
+1782089662 source:c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\adopciones.c
 	"menuGeneral.h"
 	"adopciones.h"
 
-1782082825 c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\adopciones.h
+1782089659 c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\adopciones.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"menuGeneral.h"
 
-1782089463 source:c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\menugeneral.c
+1782163686 source:c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\menugeneral.c
 	<stdio.h>
 	<stdlib.h>
 	"menuGeneral.h"
 	"adminperritos.h"
 	"adoptantes.h"
+	"adopciones.h"
+	"perritos.h"
 
 1782089463 c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\adoptantes.h
 	"menuGeneral.h"
 
-1782089463 source:c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\adoptantes.c
+1782164142 source:c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\adoptantes.c
 	"adoptantes.h"
 	<stdio.h>
 	<unistd.h>
 	<string.h>
 
-1782089464 source:c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\perritos.c
+1782162919 source:c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\perritos.c
 	<stdio.h>
 	<stdlib.h>
 	"perritos.h"
 	"menuGeneral.h"
 
-1782089464 c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\perritos.h
+1782151386 c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\perritos.h
 	"menuGeneral.h"
 
