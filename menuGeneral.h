@@ -83,5 +83,6 @@ typedef struct
 } Adopcion;
 
 void menuPrincipal(const char archivoPerritos[], const char archivoAdoptantes[],const char archivoSolicitudes[],const char archivoAdopciones[]);
+int archivoAArreglo(char nombreArchivo[], Perrito lista[]);
 
 #endif

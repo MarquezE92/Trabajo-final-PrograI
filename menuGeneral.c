@@ -35,13 +35,11 @@ const char *temperamentoTexto[] =
     "SOCIABLE"
 };
 
-void menuPrincipal(const char archivoPerritos[],
-                   const char archivoAdoptantes[],
-                   const char archivoSolicitudes[],
-                   const char archivoAdopciones[])
+void menuPrincipal(const char archivoPerritos[], const char archivoAdoptantes[], const char archivoSolicitudes[], const char archivoAdopciones[])
 {
     int opcion;
-    Perrito lista[15]= {};
+    int validos = 0;
+    Perrito lista[15] = {};
 
     do
     {
@@ -67,11 +65,17 @@ void menuPrincipal(const char archivoPerritos[],
             break;
 
         case 2:
-//Reemplazar con función que pase los elementos del archivo a un array
-            mostrarMenuAdoptante(lista, 0, archivoSolicitudes);
+
+            validos = archivoAArreglo((char *)archivoPerritos, lista);
+            mostrarMenuAdoptante(lista, validos, (char *)archivoSolicitudes);
             break;
+
         case 3:
+
             printf("\nLa suplantacion de identidad perruna en una ofensa grave. Su accionar ha sido reportado al consejo canino\n");
+
+            while(getchar() != '\n');
+
             system("pause");
             system("cls");
             break;
@@ -82,6 +86,7 @@ void menuPrincipal(const char archivoPerritos[],
             break;
 
         default:
+
             printf("\nOpcion invalida.\n");
             system("pause");
             system("cls");
@@ -90,4 +95,23 @@ void menuPrincipal(const char archivoPerritos[],
 
     }
     while(opcion != 0);
+}
+
+int archivoAArreglo(char nombreArchivo[], Perrito lista[])
+{
+    int validos = 0;
+    FILE *pf = fopen(nombreArchivo, "rb");
+
+    if(pf)
+    {
+        while(validos < 15 &&
+                fread(&lista[validos], sizeof(Perrito), 1, pf) > 0)
+        {
+            validos++;
+        }
+
+        fclose(pf);
+    }
+
+    return validos;
 }

@@ -21,5 +21,6 @@ void cargaMasivaPerritos(char nombreArchivo[]);
 void agregarID(int **vec, int *validos, int id);
 int validarID(int vec[], int validos, int idBuscado);
 void cargarTodosLosIDs(char nombreArchivo[], int **vecIDs, int *validos);
+int obtenerIdPerrito(char nombreArchivo[]);
 
 #endif
