@@ -1,5 +1,7 @@
 #include "menuGeneral.h"
 #include "adopciones.h"
+#include "pila.h"
+#include <time.h>
 
 /// reg adop: busca perri y adoptante en arch, crea reg de adop y lo guarda.
 void registrarAdopcion(char archPerritos[], char archAdoptantes[], char archAdopciones[]) {
@@ -12,10 +14,21 @@ void registrarAdopcion(char archPerritos[], char archAdoptantes[], char archAdop
     int exito = 1;
     FILE *pfPerrito = NULL, *pfAdoptante = NULL, *pfAdopcion = NULL;
 
-    printf("\nIngrese ID del perrito a adoptar <3: ");
-    scanf("%d", &idPerrito);
-    printf("Ingrese ID del adoptante: ");
-    scanf("%d", &idAdoptante);
+    do {
+        printf("\nIngrese ID del perrito a adoptar <3: ");
+        scanf("%d", &idPerrito);
+        if (idPerrito <= 0) {
+            printf("El ID debe ser mayor a 0. Intente de nuevo.\n");
+        }
+    } while (idPerrito <= 0);
+
+    do {
+        printf("Ingrese ID del adoptante: ");
+        scanf("%d", &idAdoptante);
+        if (idAdoptante <= 0) {
+            printf("El ID debe ser mayor a 0. Intente de nuevo.\n");
+        }
+    } while (idAdoptante <= 0);
 
     /// verif que perrito existe y esta disponible
     pfPerrito = fopen(archPerritos, "rb+");
@@ -35,7 +48,7 @@ void registrarAdopcion(char archPerritos[], char archAdoptantes[], char archAdop
             }
         }
         if (!encontroPerrito) {
-            printf("\nNo se encontro el perrito con ID %d.\n", idPerrito);
+            printf("\nNo se encontro el perrito con ID %i.\n", idPerrito);
             exito = 0;
         }
     }
@@ -57,7 +70,7 @@ void registrarAdopcion(char archPerritos[], char archAdoptantes[], char archAdop
         }
         fclose(pfAdoptante);
         if (!encontroAdoptante) {
-            printf("\nNo se encontro el adoptante con ID %d.\n", idAdoptante);
+            printf("\nNo se encontro el adoptante con ID %i.\n", idAdoptante);
             exito = 0;
         }
     }
@@ -96,7 +109,7 @@ void cargarObservacion(char archAdopciones[], int idPerrito) {
     Adopcion aux;
     int encontrado = 0;
     int posLibre = 0;
-    FILE *pfAdopcion = fopen(archAdopciones, "rb+");
+    FILE *pfAdopcion = fopen(archAdopciones, "r+b");
 
     if (pfAdopcion == NULL) {
         printf("\nError al abrir archivo de adopciones.\n");
@@ -108,11 +121,21 @@ void cargarObservacion(char archAdopciones[], int idPerrito) {
                 while (i < 6 && !posLibre) {
                     if (aux.observaciones[i].fecha[0] == '\0') {
                         posLibre = 1;
-                        getchar();
-                        printf("Ingrese fecha: ");
-                        gets(aux.observaciones[i].fecha);
-                        printf("Ingrese observacion: ");
-                        gets(aux.observaciones[i].comentario);
+
+                        time_t t = time(NULL);
+                        struct tm *fechaHoy = localtime(&t);
+                        sprintf(aux.observaciones[i].fecha, "%02d/%02d/%04d",
+                                fechaHoy->tm_mday,
+                                fechaHoy->tm_mon + 1,
+                                fechaHoy->tm_year + 1900);
+
+                        do {
+                            printf("Ingrese observacion: ");
+                            gets(aux.observaciones[i].comentario);
+                            if (strlen(aux.observaciones[i].comentario) == 0) {
+                                printf("El campo no puede estar vacio. Intente de nuevo.\n");
+                            }
+                        } while (strlen(aux.observaciones[i].comentario) == 0);
 
                         fseek(pfAdopcion, -(long)sizeof(Adopcion), SEEK_CUR);
                         fwrite(&aux, sizeof(Adopcion), 1, pfAdopcion);
@@ -145,8 +168,8 @@ void mostrarAdopciones(char archAdopciones[]) {
         printf("\n========== ADOPCIONES ACTIVAS ==========\n");
         while (fread(&aux, sizeof(Adopcion), 1, pfAdopcion) > 0) {
             cont++;
-            printf("\n  Perrito ID : %d", aux.idPerrito);
-            printf("\n  Adoptante ID: %d", aux.idAdoptante);
+            printf("\n  Perrito ID : %i", aux.idPerrito);
+            printf("\n  Adoptante ID: %i", aux.idAdoptante);
             printf("\n  Observaciones:");
             int i;
             for (i = 0; i < 6; i++) {
@@ -167,8 +190,8 @@ void mostrarAdopciones(char archAdopciones[]) {
 void pasarAHistorico(char archAdopciones[], char archHistorico[], int idPerrito) {
     Adopcion aux;
     int encontrado = 0;
-    FILE *pfOrigen  = fopen(archAdopciones, "rb");
-    FILE *pfTemp    = fopen("temp_adopciones.dat", "wb");
+    FILE *pfOrigen    = fopen(archAdopciones, "rb");
+    FILE *pfTemp      = fopen("temp_adopciones.dat", "wb");
     FILE *pfHistorico = fopen(archHistorico, "ab");
 
     if (!pfOrigen || !pfTemp || !pfHistorico) {
@@ -177,7 +200,6 @@ void pasarAHistorico(char archAdopciones[], char archHistorico[], int idPerrito)
         if (pfTemp)      fclose(pfTemp);
         if (pfHistorico) fclose(pfHistorico);
     } else {
-        // copiar al temp (sin el registro a mover) y al historico (el registro)
         while (fread(&aux, sizeof(Adopcion), 1, pfOrigen) > 0) {
             if (aux.idPerrito == idPerrito && !encontrado) {
                 fwrite(&aux, sizeof(Adopcion), 1, pfHistorico);
@@ -190,7 +212,7 @@ void pasarAHistorico(char archAdopciones[], char archHistorico[], int idPerrito)
         fclose(pfTemp);
         fclose(pfHistorico);
 
-        // reescribir adopciones.dat desde el temporal
+        /// reescribir adopciones.dat desde el temporal
         pfOrigen = fopen(archAdopciones, "wb");
         pfTemp   = fopen("temp_adopciones.dat", "rb");
 
@@ -210,22 +232,18 @@ void pasarAHistorico(char archAdopciones[], char archHistorico[], int idPerrito)
 }
 
 
-/// inic pilita
 void inicializarPila(PilaAdopciones *pila) {
     pila->tope = -1;
 }
 
-/// full pilita
 int pilaLlena(PilaAdopciones *pila) {
     return pila->tope == MAX_PILA - 1;
 }
 
-/// empty pilita
 int pilaVacia(PilaAdopciones *pila) {
     return pila->tope == -1;
 }
 
-/// apilita
 void apilarAdopcion(PilaAdopciones *pila, Adopcion a) {
     if (pilaLlena(pila)) {
         printf("\nEl historial esta lleno.\n");
@@ -235,7 +253,6 @@ void apilarAdopcion(PilaAdopciones *pila, Adopcion a) {
     }
 }
 
-/// desapilita
 Adopcion desapilarAdopcion(PilaAdopciones *pila) {
     Adopcion vacia = {0};
     if (!pilaVacia(pila)) {
@@ -246,7 +263,6 @@ Adopcion desapilarAdopcion(PilaAdopciones *pila) {
     return vacia;
 }
 
-/// mostrar pilita
 void mostrarPila(PilaAdopciones *pila) {
     if (pilaVacia(pila)) {
         printf("\nNo hay historial de adopciones.\n");
