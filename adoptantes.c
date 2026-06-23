@@ -153,7 +153,7 @@ Adoptante modificarAdoptante(Adoptante adoptante){
         do{
             printf("\nNuevo nombre: ");
             fgets(buffer, sizeof(buffer),stdin);
-            if((strlen((buffer))>= sizeof(adoptante.nombre))){
+            if((strlen(buffer)>= sizeof(adoptante.nombre)) || (strlen(buffer) < 3){
                 printf("\nError: El nombre excede la cantidad de caracteres permitidos.");
             }
         }while(strlen((buffer))>= sizeof(adoptante.nombre));
@@ -169,7 +169,7 @@ Adoptante modificarAdoptante(Adoptante adoptante){
         do{
             printf("\nNuevo email: ");
             fgets(buffer, sizeof(buffer),stdin);
-            if((strlen((buffer))>= sizeof(adoptante.email))){
+            if((strlen(buffer)>= sizeof(adoptante.email)) || (strlen(buffer) < 7){
                 printf("\nError: El email excede la cantidad de caracteres permitidos.");
             }
         }while(strlen((buffer))>= sizeof(adoptante.email));
@@ -203,8 +203,8 @@ Adoptante modificarAdoptante(Adoptante adoptante){
         do{
             printf("\nNueva direccion: ");
             fgets(buffer, sizeof(buffer),stdin);
-            if((strlen((buffer))>= sizeof(adoptante.direccion))){
-                printf("\nError: La direccion excede la cantidad de caracteres permitidos.");
+            if((strlen(buffer)>= sizeof(adoptante.direccion)) || (strlen(buffer) < 3)){
+                printf("\nError: Esta direccion no es valida.");
             }
         }while(strlen((buffer))>= sizeof(adoptante.direccion));
         strcpy(adoptante.direccion, buffer);
