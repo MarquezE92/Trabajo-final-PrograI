@@ -6,6 +6,7 @@
 #include "adoptantes.h"
 #include "adopciones.h"
 #include "perritos.h"
+#include "menuAdmin.h"
 
 const char *porteTexto[] =
 {
@@ -60,8 +61,7 @@ void menuPrincipal(const char archivoPerritos[], const char archivoAdoptantes[],
         switch(opcion)
         {
         case 1:
-
-            menuPerritosGeneral((char *)archivoPerritos);
+            menuAdminGeneral();
             break;
 
         case 2:

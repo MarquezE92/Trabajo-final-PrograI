@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "menuAdmin.h"
+
+void menuAdminGeneral()
+{
+    int opcion;
+    int contraseña;
+
+    do
+    {
+        printf("+-----------------------------------------+");
+        printf("\n| \t 1.- Gestionar Perrito             |");
+        printf("\n| \t 2.- Gestionar Adoptantes          |");
+        printf("\n| \t 3.- Gestionar Adopciones         |");
+        printf("\n| \t 0.- Salir                        |");
+        printf("\n+-----------------------------------------+");
+
+        printf("\nElige la opcion correcta: ");
+        scanf("%d", &opcion);
+        system("cls");
+
+        switch(opcion)
+        {
+        case 1:
+
+            menuPerritosGeneral(ARCHIVO_PERRITOS);
+            break;
+
+        case 2:
+
+            //editar(nombreArchivo);
+            break;
+
+        case 3:
+
+            //edita(nombreArchivo);
+            break;
+
+        case 0:
+
+            printf("\nChau...\n");
+            ///volver menu principal
+            break;
+
+        default:
+            printf("\nOpcion invalida.\n");
+            system("pause");
+            system("cls");
+            getchar();
+        }
+
+    }
+    while(opcion != 0);
+}

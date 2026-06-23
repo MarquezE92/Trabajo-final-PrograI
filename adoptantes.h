@@ -2,6 +2,7 @@
 #define ADOPTANTES_H_INCLUDED
 #include "menuGeneral.h"
 
+void menuAdoptante();
 Adoptante cargarAdoptanteSimple();
 void cargarAdoptante(char nombreArchivo[]);
 void mostrarAdoptante(Adoptante adoptante);
