@@ -1,4 +1,4 @@
-#include <stdio.h>
+/*#include <stdio.h>
 
 int obtenerMes(char fecha[])
 {
@@ -57,13 +57,13 @@ void cargarMetricaaAdopciones(char nombreArchivo[], int metricasMat[MESES][COLUM
     {
         while(fread(&adopcion, sizeof(Adopcion), 1, fp) > 0)
         {
-            if(strlen(adopcion.observaciones[0].fecha) > 0)
+        if(strlen(adopcion.observaciones[0].fecha) > 0)
             {
-                int mes = obtenerMes(adopcion.observaciones[0].fecha);
+               int mes = obtenerMes(adopcion.observaciones[0].fecha);
 
                 if(mes >= 1 && mes <= 12)
                 {
-                    metricasMat[mes - 1][COL_ADOPCIONES]++;
+                  metricasMat[mes - 1][COL_ADOPCIONES]++;
                 }
             }
         }
@@ -114,3 +114,4 @@ void mostrarEstadisticas(int estadisticas[MESES][COLUMNAS])
                estadisticas[i][COL_ADOPCIONES]);
     }
 }
+*/

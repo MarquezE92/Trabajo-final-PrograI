@@ -10,22 +10,21 @@
 	<stdlib.h>
 	"menuGeneral.h"
 
-1782079630 source:c:\users\pabie\desktop\trabajo-final-prograi\main.c
+1782167407 source:c:\users\pabie\desktop\trabajo-final-prograi\main.c
 	<stdio.h>
 	<stdlib.h>
 	"menuGeneral.h"
 
-1782078802 source:c:\users\pabie\desktop\trabajo-final-prograi\perritos.c
+1782167407 source:c:\users\pabie\desktop\trabajo-final-prograi\perritos.c
 	<stdio.h>
 	<stdlib.h>
-	<string.h>
-	"menuGeneral.h"
 	"perritos.h"
-
-1782078802 c:\users\pabie\desktop\trabajo-final-prograi\perritos.h
 	"menuGeneral.h"
 
-1782079198 source:c:\users\pabie\desktop\trabajo-final-prograi\adminperritos.c
+1782167407 c:\users\pabie\desktop\trabajo-final-prograi\perritos.h
+	"menuGeneral.h"
+
+1782249559 source:c:\users\pabie\desktop\trabajo-final-prograi\adminperritos.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -33,37 +32,41 @@
 	"adminperritos.h"
 	"menuGeneral.h"
 
-1782079177 c:\users\pabie\desktop\trabajo-final-prograi\adminperritos.h
+1782249559 c:\users\pabie\desktop\trabajo-final-prograi\adminperritos.h
 	"menuGeneral.h"
 
-1782079518 c:\users\pabie\desktop\trabajo-final-prograi\menugeneral.h
+1782249559 c:\users\pabie\desktop\trabajo-final-prograi\menugeneral.h
 
-1782078163 source:c:\users\pabie\desktop\trabajo-final-prograi\adopciones.c
+1782249559 source:c:\users\pabie\desktop\trabajo-final-prograi\adopciones.c
 	"menuGeneral.h"
 	"adopciones.h"
+	"pila.h"
+	<time.h>
 
-1782078163 c:\users\pabie\desktop\trabajo-final-prograi\adopciones.h
+1782167407 c:\users\pabie\desktop\trabajo-final-prograi\adopciones.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"menuGeneral.h"
 
-1782078434 source:c:\users\pabie\desktop\trabajo-final-prograi\adoptantes.c
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	<unistd.h>
+1782249559 source:c:\users\pabie\desktop\trabajo-final-prograi\adoptantes.c
 	"adoptantes.h"
+	<stdio.h>
+	<unistd.h>
+	<string.h>
 
-1782077582 c:\users\pabie\desktop\trabajo-final-prograi\adoptantes.h
+1782249559 c:\users\pabie\desktop\trabajo-final-prograi\adoptantes.h
 	"menuGeneral.h"
 
-1782078994 source:c:\users\pabie\desktop\trabajo-final-prograi\menugeneral.c
+1782249559 source:c:\users\pabie\desktop\trabajo-final-prograi\menugeneral.c
 	<stdio.h>
 	<stdlib.h>
 	"menuGeneral.h"
 	"adminperritos.h"
 	"adoptantes.h"
+	"adopciones.h"
+	"perritos.h"
+	"menuAdmin.h"
 
 1782164974 source:c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\adminperritos.c
 	<stdio.h>
@@ -114,4 +117,21 @@
 
 1782151386 c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\perritos.h
 	"menuGeneral.h"
+
+1782249559 c:\users\pabie\desktop\trabajo-final-prograi\pila.h
+
+1782249559 c:\users\pabie\desktop\trabajo-final-prograi\menuadmin.h
+
+1782249559 source:c:\users\pabie\desktop\trabajo-final-prograi\pila.c
+	<stdio.h>
+	"pila.h"
+
+1782250105 source:c:\users\pabie\desktop\trabajo-final-prograi\menuadmin.c
+	<stdio.h>
+	<stdlib.h>
+	"menuAdmin.h"
+	"adminperritos.h"
+	"menuGeneral.h"
+
+1782250120 source:c:\users\pabie\desktop\trabajo-final-prograi\metricas.c
 

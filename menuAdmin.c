@@ -1,11 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
+
+
+#include "adminperritos.h"
+#include "adoptantes.h"
+#include "adopciones.h"
+#include "perritos.h"
 #include "menuAdmin.h"
 
 void menuAdminGeneral()
 {
     int opcion;
-    int contraseña;
+    int contra;
 
     do
     {

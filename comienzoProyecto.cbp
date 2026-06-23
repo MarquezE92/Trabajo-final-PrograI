@@ -31,23 +31,6 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="adoptantes.c">
-			<Option compilerVar="CC" />
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="adoptantes.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="main.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="perritos.c">
-			<Option compilerVar="CC" />
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="perritos.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
 		<Unit filename="adminperritos.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -63,14 +46,26 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="menuAdmin.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="menuAdmin.h" />
 		<Unit filename="menuGeneral.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="menuGeneral.h" />
+		<Unit filename="metricas.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="metricas.h" />
 		<Unit filename="perritos.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="perritos.h" />
+		<Unit filename="pila.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="pila.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
