@@ -6,11 +6,9 @@
 Adoptante cargarAdoptanteSimple()
 {
     Adoptante aux;
-    char buffer[35],bufferTel[12];
+    char buffer[235],bufferTel[212];
 
-    printf("Cargue el ID del adoptante: ");
-    scanf("%d", &aux.idAdoptante);
-    fflush(stdin);
+    aux.idAdoptante = obtenerIdAdoptante();
 
     do{
         printf("\nCargue el nombre de pila del adoptante: ");
@@ -33,7 +31,7 @@ Adoptante cargarAdoptanteSimple()
     do{
         printf("\nCargue el telefono del adoptante: ");
         fgets(bufferTel, sizeof(bufferTel),stdin);
-        if((strlen((bufferTel))>= sizeof(aux.tel))){
+        if((strlen(bufferTel)>= sizeof(aux.tel)) || strlen(bufferTel) < 7){
             printf("\nError: El telefono no es valido.");
         }
     }while(strlen((bufferTel))>= sizeof(aux.tel));
@@ -155,7 +153,7 @@ Adoptante modificarAdoptante(Adoptante adoptante){
         do{
             printf("\nNuevo nombre: ");
             fgets(buffer, sizeof(buffer),stdin);
-            if((strlen((buffer))>= sizeof(adoptante.nombre))){
+            if((strlen(buffer)>= sizeof(adoptante.nombre)) || (strlen(buffer) < 3){
                 printf("\nError: El nombre excede la cantidad de caracteres permitidos.");
             }
         }while(strlen((buffer))>= sizeof(adoptante.nombre));
@@ -163,7 +161,7 @@ Adoptante modificarAdoptante(Adoptante adoptante){
 
 
     }
-    printf("\n�Desea modificar el email del adoptante? (s/n): ");
+    printf("\nDesea modificar el email del adoptante? (s/n): ");
     scanf(" %c", &opcion);
 
     if (opcion == 's' || opcion == 'S')
@@ -171,7 +169,7 @@ Adoptante modificarAdoptante(Adoptante adoptante){
         do{
             printf("\nNuevo email: ");
             fgets(buffer, sizeof(buffer),stdin);
-            if((strlen((buffer))>= sizeof(adoptante.email))){
+            if((strlen(buffer)>= sizeof(adoptante.email)) || (strlen(buffer) < 7){
                 printf("\nError: El email excede la cantidad de caracteres permitidos.");
             }
         }while(strlen((buffer))>= sizeof(adoptante.email));
@@ -180,7 +178,7 @@ Adoptante modificarAdoptante(Adoptante adoptante){
 
     }
 
-    printf("\n¿Desea modificar el telefono del adoptante? (s/n): ");
+    printf("\nDesea modificar el telefono del adoptante? (s/n): ");
     scanf(" %c", &opcion);
 
     if (opcion == 's' || opcion == 'S')
@@ -188,7 +186,7 @@ Adoptante modificarAdoptante(Adoptante adoptante){
         do{
             printf("\nNuevo telefono: ");
             fgets(bufferTel, sizeof(bufferTel),stdin);
-            if((strlen((bufferTel))>= sizeof(adoptante.tel))){
+            if((strlen(bufferTel)>= sizeof(adoptante.tel)) || strlen(bufferTel) < 7){
                 printf("\nError: El telefono no es valido.");
             }
         }while(strlen((bufferTel))>= sizeof(adoptante.tel));
@@ -197,7 +195,7 @@ Adoptante modificarAdoptante(Adoptante adoptante){
 
     }
 
-    printf("\n¿Desea modificar la direcci�n del adoptante? (s/n): ");
+    printf("\nDesea modificar la direccion del adoptante? (s/n): ");
     scanf(" %c", &opcion);
 
     if (opcion == 's' || opcion == 'S')
@@ -205,8 +203,8 @@ Adoptante modificarAdoptante(Adoptante adoptante){
         do{
             printf("\nNueva direccion: ");
             fgets(buffer, sizeof(buffer),stdin);
-            if((strlen((buffer))>= sizeof(adoptante.direccion))){
-                printf("\nError: La direccion excede la cantidad de caracteres permitidos.");
+            if((strlen(buffer)>= sizeof(adoptante.direccion)) || (strlen(buffer) < 3)){
+                printf("\nError: Esta direccion no es valida.");
             }
         }while(strlen((buffer))>= sizeof(adoptante.direccion));
         strcpy(adoptante.direccion, buffer);
@@ -232,4 +230,24 @@ void modificarRegistroAdoptante(char nombreArchivo[], int posicion){
         }
         fclose(fp);
     }
+}
+
+int obtenerIdAdoptante(){
+    int id;
+    Adoptante aux;
+    FILE *fp = fopen(ARCHIVO_ADOPTANTES, "rb");
+    if(fp == NULL){
+        printf("\nNo se pudo acceder al archivo de Adoptantes para obetener el ID");
+    }else{
+        if(fread(&aux, sizeof(Adoptante), 1, fp) != 1){
+            id = 1;
+        }else{
+        fseek(fp, -sizeof(Adoptante), SEEK_END);
+        fread(&aux, sizeof(Adoptante), 1, fp);
+        id = aux.idAdoptante + 1;
+        }
+
+        fclose(fp);
+    }
+    return id;
 }

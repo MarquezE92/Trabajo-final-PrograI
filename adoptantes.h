@@ -11,6 +11,7 @@ int buscarPosicionPorId(char nombreArchivo[], int idAdoptante);
 void eliminarAdoptante(char nombreArchivo[], int idAdoptante);
 Adoptante modificarAdoptante(Adoptante adoptante);
 void modificarRegistroAdoptante(char nombreArchivo[], int posicion);
+int obtenerIdAdoptante();
 
 
 #endif // ADOPTANTES_H_INCLUDED
