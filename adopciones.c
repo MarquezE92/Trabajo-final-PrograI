@@ -335,7 +335,7 @@ void cargarObservacion(char archAdopciones[], int idPerrito)
     }
     else
     {
-        while (fread(&aux, sizeof(Adopcion), 1, pfAdopcion) > 0 && !encontrado)
+        while (!encontrado && fread(&aux, sizeof(Adopcion), 1, pfAdopcion) > 0 )
         {
             if (aux.idPerrito == idPerrito)
             {
