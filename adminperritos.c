@@ -330,10 +330,19 @@ void menuFiltro(char nombreArchivo[])
         printf("\n| \t 0.- Volver                       |");
         printf("\n+-----------------------------------------+");
 
-        printf("\nElige la opcion correcta: ");
-        scanf("%d", &opcion);
-        system("cls");
+        do
+        {
+            printf("\nElige la opcion correcta: ");
+            if (scanf("%d", &opcion) != 1 || (opcion < 0 || opcion > 4))
+            {
+                printf("\nDebe ingresar una opcion valida (0 a 4)\n");
+                while (getchar() != '\n');
+                opcion = -1;
+            }
+        }
+        while (opcion < 0 || opcion > 4);
 
+        system("cls");
         validos = 0;
         free(vecIDs);
         vecIDs = NULL;
@@ -342,14 +351,23 @@ void menuFiltro(char nombreArchivo[])
         {
         case 1:
 
-            printf("\n0 - CHICO");
-            printf("\n1 - MEDIANO");
-            printf("\n2 - GRANDE");
-            printf("\nSeleccione porte: ");
-            scanf("%d", &port);
-            getchar();
-            filtrarPorPorte(nombreArchivo,port,&vecIDs,&validos);
-            menuGestionPerritos(nombreArchivo,vecIDs,validos);
+            do
+            {
+                printf("\n0 - CHICO");
+                printf("\n1 - MEDIANO");
+                printf("\n2 - GRANDE");
+                printf("\nSeleccione porte: ");
+                if (scanf("%d", &port) != 1 || (port < 0 || port > 2))
+                {
+                    printf("\nDebe ingresar una opcion valida\n");
+                    while (getchar() != '\n');
+                    port = -1;
+                }
+            }
+            while (port < 0 || port > 2);
+
+            filtrarPorPorte(nombreArchivo, port, &vecIDs, &validos);
+            menuGestionPerritos(nombreArchivo, vecIDs, validos);
             break;
 
         case 2:
@@ -359,7 +377,7 @@ void menuFiltro(char nombreArchivo[])
                 printf("\n0 - MACHO");
                 printf("\n1 - HEMBRA");
                 printf("\nSeleccione genero: ");
-                if(scanf("%d", &gen)!=1 || (gen < 0 || gen > 2))
+                if(scanf("%d", &gen)!=1 || (gen < 0 || gen > 1))
                 {
                     printf("\nDebe ingresar una opcion valida");
 
@@ -369,31 +387,50 @@ void menuFiltro(char nombreArchivo[])
                 }
 
             }
-            while(gen < 0 || gen > 2);
+            while(gen < 0 || gen > 1);
+
             filtrarPorGenero(nombreArchivo, gen, &vecIDs, &validos);
             menuGestionPerritos(nombreArchivo, vecIDs, validos);
             break;
 
         case 3:
 
-            printf("\nIngrese edad a buscar: ");
-            scanf("%d", &edad);
-            getchar();
+            do
+            {
+                printf("\nIngrese edad a buscar (0-30): ");
+                if (scanf("%d", &edad) != 1 || (edad < 0 || edad > 30))
+                {
+                    printf("\nDebe ingresar una edad valida\n");
+                    while (getchar() != '\n');
+                    edad = -1;
+                }
+            }
+            while (edad < 0 || edad > 30);
+
             filtrarPorEdad(nombreArchivo, edad, &vecIDs, &validos);
-            menuGestionPerritos(nombreArchivo, vecIDs,  validos);
+            menuGestionPerritos(nombreArchivo, vecIDs, validos);
             break;
 
         case 4:
 
-            printf("\n0 - CALMADO");
-            printf("\n1 - JUGUETON");
-            printf("\n2 - ANSIOSO");
-            printf("\n3 - AGRESIVO");
-            printf("\n4 - SOCIABLE");
-            printf("\nSeleccione temperamento: ");
-            scanf("%d", &temp);
-            getchar();
-            filtrarPorTemperamento(nombreArchivo, temp, &vecIDs,&validos);
+            do
+            {
+                printf("\n0 - CALMADO");
+                printf("\n1 - JUGUETON");
+                printf("\n2 - ANSIOSO");
+                printf("\n3 - AGRESIVO");
+                printf("\n4 - SOCIABLE");
+                printf("\nSeleccione temperamento: ");
+                if (scanf("%d", &temp) != 1 || (temp < 0 || temp > 4))
+                {
+                    printf("\nDebe ingresar una opcion valida\n");
+                    while (getchar() != '\n');
+                    temp = -1;
+                }
+            }
+            while (temp < 0 || temp > 4);
+
+            filtrarPorTemperamento(nombreArchivo, temp, &vecIDs, &validos);
             menuGestionPerritos(nombreArchivo, vecIDs, validos);
             break;
 
@@ -530,262 +567,274 @@ void menuGestionPerritos(char nombreArchivo[], int vecIDs[], int validos)
 {
     int opcion;
     int id;
-
-    printf("+-----------------------------------------+");
-    printf("\n| \t 1.- Modificar Perrito           |");
-    printf("\n| \t 2.- Eliminar Perrito            |");
-    printf("\n| \t 3.- Mejor me vuelvo             |");
-    printf("\n+-----------------------------------------+");
-
-    printf("\nElige la opcion correcta: ");
-    scanf("%d", &opcion);
-
-    switch(opcion)
+    int scanId;
+    do
     {
-    case 1:
-
-        printf("\nIngrese ID del perrito a modificar: ");
+        printf("+-----------------------------------------+");
+        printf("\n| \t 1.- Modificar Perrito           |");
+        printf("\n| \t 2.- Eliminar Perrito            |");
+        printf("\n| \t 0.- Mejor me vuelvo             |");
+        printf("\n+-----------------------------------------+");
 
         do
         {
-            scanf("%d", &id);
-
-            if(!validarID(vecIDs, validos, id))
+            printf("\nElige la opcion correcta: ");
+            if (scanf("%d", &opcion) != 1 || (opcion < 0 || opcion > 2))
             {
-                printf("\nID invalido.\n");
-                printf("\nIngrese ID del perrito a modificar: ");
+                printf("\nDebe ingresar una opcion valida (0 a 2)\n");
+                while (getchar() != '\n');
+                opcion = -1;
             }
-
         }
-        while(!validarID(vecIDs, validos, id));
+        while (opcion < 0 || opcion > 2);
+
+        switch(opcion)
+        {
+
+        case 1:
+
+           do
+        {
+            printf("\nIngrese ID del perrito a modificar: ");
+            scanId = scanf("%d", &id);
+
+
+            if (scanId != 1 || !validarID(vecIDs, validos, id))
+            {
+                printf("\nID invalido o inexistente.\n");
+                while (getchar() != '\n');
+                id = -1;
+            }
+        }
+        while (id == -1);
 
         modificarPerrito(nombreArchivo, id);
         break;
 
-    case 2:
+        case 2:
 
-        printf("\nIngrese ID del perrito a eliminar: ");
-        do
+           do
         {
-            scanf("%d", &id);
+            printf("\nIngrese ID del perrito a eliminar: ");
+            scanId = scanf("%d", &id);
 
-            if(!validarID(vecIDs, validos, id))
+            if (scanId != 1 || !validarID(vecIDs, validos, id))
             {
-                printf("\nID invalido.\n");
-                printf("\nIngrese ID del perrito a eliminar: ");
+                printf("\nID invalido o inexistente.\n");
+                while (getchar() != '\n');
+                id = -1;
             }
-
         }
-        while(!validarID(vecIDs, validos, id));
+        while (id == -1);
+
         eliminarPerrito(nombreArchivo, id);
         break;
 
-    case 3:
+        case 0:
 
-        printf("\nVolviendo...\n\n");
-        break;
+            printf("\nVolviendo...\n\n");
+            break;
 
-    default:
-        printf("\nOpcion invalida.\n");
-        system("pause");
-        system("cls");
-        getchar();
+        default:
+            printf("\nOpcion invalida.\n");
+            system("pause");
+            system("cls");
+            getchar();
 
-
-
-        while(opcion != 0);
-    }
-}
-
-void modificarPerrito(char nombreArchivo[], int idBuscado)
-{
-    Perrito aux;
-    int encontrado = 0;
-
-    FILE *pf = fopen(nombreArchivo, "r+b");
-
-    if(pf == NULL)
-    {
-        printf("\nNo se pudo abrir el archivo");
-    }
-    else
-    {
-        while(fread(&aux, sizeof(Perrito), 1, pf) > 0 && !encontrado)
-        {
-            if(aux.idPerrito == idBuscado)
-            {
-                encontrado = 1;
-
-                printf("\nPerrito encontrado:");
-                mostrarPerrito(aux);
-
-                printf("\nIngrese los nuevos datos:");
-                printf("\n");
-                aux = cargarPerri();
-
-                aux.idPerrito = idBuscado;
-
-                fseek(pf, -sizeof(Perrito), SEEK_CUR);
-
-                fwrite(&aux, sizeof(Perrito), 1, pf);
-
-                printf("\nModificacion realizada correctamente\n");
-            }
-        }
-
-        fclose(pf);
-
-        if(!encontrado)
-        {
-            printf("\nNo existe un perrito con ese ID\n");
         }
     }
-}
-
-void eliminarPerrito(char nombreArchivo[], int idBuscado)
-{
-    Perrito aux;
-    int encontrado = 0;
-
-    FILE *archivo = fopen(nombreArchivo, "rb");
-    FILE *auxiliar = fopen("aux.dat", "wb");
-
-    if(archivo == NULL || auxiliar == NULL)
-    {
-        printf("\nError al abrir archivos");
+    while(opcion != 0);
     }
-    else
+
+    void modificarPerrito(char nombreArchivo[], int idBuscado)
     {
-        while(fread(&aux, sizeof(Perrito), 1, archivo) > 0)
+        Perrito aux;
+        int encontrado = 0;
+
+        FILE *pf = fopen(nombreArchivo, "r+b");
+
+        if(pf == NULL)
         {
-            if(aux.idPerrito == idBuscado)
-            {
-                encontrado = 1;
-
-                printf("\nPerrito encontrado:");
-                mostrarPerrito(aux);
-            }
-            else
-            {
-                fwrite(&aux, sizeof(Perrito), 1, auxiliar);
-            }
-        }
-
-        fclose(archivo);
-        fclose(auxiliar);
-
-        if(encontrado)
-        {
-            remove(nombreArchivo);
-            rename("aux.dat", nombreArchivo);
-            printf("\n\nPerrito eliminado correctamente.\n");
+            printf("\nNo se pudo abrir el archivo");
         }
         else
         {
-            remove("aux.dat");
-            printf("\n\nNo existe un perrito con ID %d.\n", idBuscado);
+            while(fread(&aux, sizeof(Perrito), 1, pf) > 0 && !encontrado)
+            {
+                if(aux.idPerrito == idBuscado)
+                {
+                    encontrado = 1;
+
+                    printf("\nPerrito encontrado:");
+                    mostrarPerrito(aux);
+
+                    printf("\nIngrese los nuevos datos:");
+                    printf("\n");
+                    aux = cargarPerri();
+
+                    aux.idPerrito = idBuscado;
+
+                    fseek(pf, -sizeof(Perrito), SEEK_CUR);
+
+                    fwrite(&aux, sizeof(Perrito), 1, pf);
+
+                    printf("\nModificacion realizada correctamente\n");
+                }
+            }
+
+            fclose(pf);
+
+            if(!encontrado)
+            {
+                printf("\nNo existe un perrito con ese ID\n");
+            }
         }
     }
-}
 
-void cargaMasivaPerritos(char nombreArchivo[])
-{
-    Perrito perros[10] =
+    void eliminarPerrito(char nombreArchivo[], int idBuscado)
     {
-        {1,"Firulais",3,"Labrador",MEDIANO,DISPONIBLE,JUGUETON,MACHO,"15/01/2026"},
-        {2,"Luna",5,"Caniche",CHICO,DISPONIBLE,CALMADO,HEMBRA,"28/01/2026"},
-        {3,"Rocky",2,"Ovejero",GRANDE,DISPONIBLE,ANSIOSO,MACHO,"10/02/2026"},
-        {4,"Mora",4,"Golden",GRANDE,DISPONIBLE,SOCIABLE,HEMBRA,"22/02/2026"},
-        {5,"Toby",1,"Beagle",MEDIANO,DISPONIBLE,JUGUETON,MACHO,"05/03/2026"},
-        {6,"Nina",6,"Labrador",GRANDE,DISPONIBLE,CALMADO,HEMBRA,"19/03/2026"},
-        {7,"Simba",2,"Mestizo",CHICO,DISPONIBLE,AGRESIVO,MACHO,"08/04/2026"},
-        {8,"Kira",3,"Border Collie",MEDIANO,DISPONIBLE,SOCIABLE,HEMBRA,"27/04/2026"},
-        {9,"Bruno",7,"Dogo",GRANDE,DISPONIBLE,CALMADO,MACHO,"14/05/2026"},
-        {10,"Lola",4,"Salchicha",CHICO,DISPONIBLE,JUGUETON,HEMBRA,"02/06/2026"}
-    };
-    FILE *pf = fopen(nombreArchivo, "wb");
-    if(pf)
-    {
-        fwrite(perros, sizeof(Perrito), 10, pf);
-        fclose(pf);
-        printf("\nCarga masiva realizada correctamente.\n");
-    }
-    else
-    {
-        printf("\nError al abrir el archivo.\n");
-    }
-    menuPerritosGeneral(nombreArchivo);
-}
+        Perrito aux;
+        int encontrado = 0;
 
-void agregarID(int **vec, int *validos, int id)
-{
-    *vec = realloc(*vec, sizeof(int) * (*validos + 1));
+        FILE *archivo = fopen(nombreArchivo, "rb");
+        FILE *auxiliar = fopen("aux.dat", "wb");
 
-    if(*vec != NULL)
-    {
-        (*vec)[*validos] = id;
-        (*validos)++;
-    }
-}
-
-int validarID(int vec[], int validos, int idBuscado)
-{
-    int i;
-
-    for(i = 0; i < validos; i++)
-    {
-        if(vec[i] == idBuscado)
+        if(archivo == NULL || auxiliar == NULL)
         {
-            return 1;
+            printf("\nError al abrir archivos");
         }
-    }
-
-    return 0;
-}
-
-void cargarTodosLosIDs(char nombreArchivo[],int **vecIDs, int *validos)
-{
-    Perrito aux;
-
-    FILE *pf = fopen(nombreArchivo, "rb");
-
-    if(pf)
-    {
-        while(fread(&aux, sizeof(Perrito), 1, pf) > 0)
+        else
         {
-            agregarID(vecIDs, validos, aux.idPerrito);
+            while(fread(&aux, sizeof(Perrito), 1, archivo) > 0)
+            {
+                if(aux.idPerrito == idBuscado)
+                {
+                    encontrado = 1;
+
+                    printf("\nPerrito encontrado:");
+                    mostrarPerrito(aux);
+                }
+                else
+                {
+                    fwrite(&aux, sizeof(Perrito), 1, auxiliar);
+                }
+            }
+
+            fclose(archivo);
+            fclose(auxiliar);
+
+            if(encontrado)
+            {
+                remove(nombreArchivo);
+                rename("aux.dat", nombreArchivo);
+                printf("\n\nPerrito eliminado correctamente.\n");
+            }
+            else
+            {
+                remove("aux.dat");
+                printf("\n\nNo existe un perrito con ID %d.\n", idBuscado);
+            }
+        }
+    }
+
+    void cargaMasivaPerritos(char nombreArchivo[])
+    {
+        Perrito perros[10] =
+        {
+            {1,"Firulais",3,"Labrador",MEDIANO,DISPONIBLE,JUGUETON,MACHO,"15/01/2026"},
+            {2,"Luna",5,"Caniche",CHICO,DISPONIBLE,CALMADO,HEMBRA,"28/01/2026"},
+            {3,"Rocky",2,"Ovejero",GRANDE,DISPONIBLE,ANSIOSO,MACHO,"10/02/2026"},
+            {4,"Mora",4,"Golden",GRANDE,DISPONIBLE,SOCIABLE,HEMBRA,"22/02/2026"},
+            {5,"Toby",1,"Beagle",MEDIANO,DISPONIBLE,JUGUETON,MACHO,"05/03/2026"},
+            {6,"Nina",6,"Labrador",GRANDE,DISPONIBLE,CALMADO,HEMBRA,"19/03/2026"},
+            {7,"Simba",2,"Mestizo",CHICO,DISPONIBLE,AGRESIVO,MACHO,"08/04/2026"},
+            {8,"Kira",3,"Border Collie",MEDIANO,DISPONIBLE,SOCIABLE,HEMBRA,"27/04/2026"},
+            {9,"Bruno",7,"Dogo",GRANDE,DISPONIBLE,CALMADO,MACHO,"14/05/2026"},
+            {10,"Lola",4,"Salchicha",CHICO,DISPONIBLE,JUGUETON,HEMBRA,"02/06/2026"}
+        };
+        FILE *pf = fopen(nombreArchivo, "wb");
+        if(pf)
+        {
+            fwrite(perros, sizeof(Perrito), 10, pf);
+            fclose(pf);
+            printf("\nCarga masiva realizada correctamente.\n");
+        }
+        else
+        {
+            printf("\nError al abrir el archivo.\n");
+        }
+        menuPerritosGeneral(nombreArchivo);
+    }
+
+    void agregarID(int **vec, int *validos, int id)
+    {
+        *vec = realloc(*vec, sizeof(int) * (*validos + 1));
+
+        if(*vec != NULL)
+        {
+            (*vec)[*validos] = id;
+            (*validos)++;
+        }
+    }
+
+    int validarID(int vec[], int validos, int idBuscado)
+    {
+        int i;
+
+        for(i = 0; i < validos; i++)
+        {
+            if(vec[i] == idBuscado)
+            {
+                return 1;
+            }
         }
 
-        fclose(pf);
+        return 0;
     }
-}
 
-int obtenerIdPerrito(char nombreArchivo[])
-{
-    int id;
-    Perrito aux;
-
-    FILE *pf = fopen(nombreArchivo, "rb");
-
-    if(pf == NULL)
+    void cargarTodosLosIDs(char nombreArchivo[],int **vecIDs, int *validos)
     {
-        id = 1;
+        Perrito aux;
+
+        FILE *pf = fopen(nombreArchivo, "rb");
+
+        if(pf)
+        {
+            while(fread(&aux, sizeof(Perrito), 1, pf) > 0)
+            {
+                agregarID(vecIDs, validos, aux.idPerrito);
+            }
+
+            fclose(pf);
+        }
     }
-    else
+
+    int obtenerIdPerrito(char nombreArchivo[])
     {
-        if(fread(&aux, sizeof(Perrito), 1, pf) != 1)
+        int id;
+        Perrito aux;
+
+        FILE *pf = fopen(nombreArchivo, "rb");
+
+        if(pf == NULL)
         {
             id = 1;
         }
         else
         {
-            fseek(pf, -sizeof(Perrito), SEEK_END);
-            fread(&aux, sizeof(Perrito), 1, pf);
-            id = aux.idPerrito + 1;
+            if(fread(&aux, sizeof(Perrito), 1, pf) != 1)
+            {
+                id = 1;
+            }
+            else
+            {
+                fseek(pf, -sizeof(Perrito), SEEK_END);
+                fread(&aux, sizeof(Perrito), 1, pf);
+                id = aux.idPerrito + 1;
+            }
+
+            fclose(pf);
         }
 
-        fclose(pf);
+        return id;
     }
-
-    return id;
-}
