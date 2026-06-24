@@ -130,7 +130,7 @@ void eliminarAdoptante(char nombreArchivo[], int idAdoptante){
     Adoptante aux;
     int posicionAeliminar = buscarPosicionPorId(nombreArchivo, idAdoptante);
     if(posicionAeliminar < 0){
-    printf("No se encontro el adoptante\n");
+    printf("\nNo se encontro el adoptante\n");
     } else {
         FILE *pf= fopen(nombreArchivo,  "r+b");
         if(pf == NULL){
@@ -230,11 +230,11 @@ void modificarRegistroAdoptante(char nombreArchivo[], int posicion){
     FILE *fp = fopen(nombreArchivo, "r+b");
     Adoptante aux;
     if(fp == NULL){
-        printf("\n No se puedo abrir el archivo para modificar un registro");
+        printf("\n No se puedo abrir el archivo para modificar un registro\n");
     }else{
         fseek(fp, posicion * sizeof(Adoptante), SEEK_SET);
         if(fread(&aux, sizeof(Adoptante), 1, fp) != 1){
-            printf("\n No se encontro el adoptante que se queria modificar");
+            printf("\n No se encontro el adoptante que se queria modificar\n");
         }else{
         aux = modificarAdoptante(aux);
         fseek(fp, posicion * sizeof(Adoptante), SEEK_SET);
@@ -266,7 +266,7 @@ int obtenerIdAdoptante()
         fclose(fp);
     }
 
-    return mayorId + 1;
+    return ++mayorId;
 }
 
 void menuAdoptante(){
@@ -292,9 +292,12 @@ void menuAdoptante(){
             break;
 
         case 2:
-            ordenarArchivoAdoptantes(ARCHIVO_ADOPTANTES);
-            mostrarTodosAdoptantes(ARCHIVO_ADOPTANTES);
-            menuSeleccionAdoptante();
+            if(ordenarArchivoAdoptantes(ARCHIVO_ADOPTANTES) > 0){
+               mostrarTodosAdoptantes(ARCHIVO_ADOPTANTES);
+               menuSeleccionAdoptante();
+            }else{
+                printf("\nAun no tienes adoptantes registrados\n");
+            }
             break;
 
         case 0:
@@ -317,16 +320,16 @@ void menuSeleccionAdoptante(){
     char opcion = 's';
     int idAdoptante, seleccion;
 
-    printf("Deseas seleccionar un adoptante? s/n: ");
+    printf("\nDeseas seleccionar un adoptante? s/n: ");
     scanf(" %c", &opcion);
     if(opcion == 's'){
 
-        printf("Ingrese el ID del adoptante que desea seleccionar: ");
+        printf("\nIngrese el ID del adoptante que desea seleccionar: ");
         scanf("%i", &idAdoptante);
         system("cls");
         int posicion = buscarPosicionPorId(ARCHIVO_ADOPTANTES, idAdoptante);
         if(posicion < 0){
-            printf("No pudo encontrarse un Adoptante con ese ID");
+            printf("\nNo pudo encontrarse un Adoptante con ese ID\n");
         } else{
             printf("Usted ha seleccionado a: \n\n");
             mostrarAdoptantePorId(ARCHIVO_ADOPTANTES, idAdoptante);
@@ -337,10 +340,10 @@ void menuSeleccionAdoptante(){
                 printf("| .-Para salir, presione 0                                   |\n");
                 printf("+-------------------------------------------------------------\n");
                 scanf("%i", &seleccion);
-                if(seleccion >2 && seleccion<0){
+                if(seleccion >2 || seleccion<0){
                     printf("\n Esa no es una opcion valida, recuerde:\n");
                 }
-            }while(seleccion >2 && seleccion<0);
+            }while(seleccion >2 || seleccion<0);
 
             switch(seleccion)
             {
@@ -406,10 +409,10 @@ void ordenamientoSeleccionAdoptantes(Adoptante lista[], int validos)
     }
 }
 
-void ordenarArchivoAdoptantes(char archAdoptantes[])
+int ordenarArchivoAdoptantes(char archAdoptantes[])
 {
     Adoptante lista[100];
-    int validos = 0;
+    int validos = 0, existeArchivo = 1;
 
     FILE *pf = fopen(archAdoptantes, "rb");
 
@@ -434,5 +437,8 @@ void ordenarArchivoAdoptantes(char archAdoptantes[])
 
             printf("\nArchivo ordenado por nombre.\n");
         }
+    }else{
+        existeArchivo = -1;
     }
+    return existeArchivo;
 }
