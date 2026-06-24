@@ -35,7 +35,7 @@ Adoptante cargarAdoptanteSimple()
         if((strlen(bufferTel)>= sizeof(aux.tel)) || strlen(bufferTel) < 7){
             printf("\nError: El telefono no es valido.");
         }
-    }while(strlen((bufferTel))>= sizeof(aux.tel));
+    }while((strlen(bufferTel)>= sizeof(aux.tel)) || strlen(bufferTel) < 7);
     strcpy(aux.tel, bufferTel);
 
     do{
@@ -168,7 +168,7 @@ Adoptante modificarAdoptante(Adoptante adoptante){
             if((strlen(buffer)>= sizeof(adoptante.nombre)) || (strlen(buffer) < 3)){
                 printf("\nError: El nombre no es valido.");
             }
-        }while(strlen((buffer))>= sizeof(adoptante.nombre));
+        }while((strlen(buffer)>= sizeof(adoptante.nombre)) || (strlen(buffer) < 3));
         strcpy(adoptante.nombre, buffer);
 
 
@@ -185,9 +185,8 @@ Adoptante modificarAdoptante(Adoptante adoptante){
             if((strlen(buffer)>= sizeof(adoptante.email)) || (strlen(buffer) < 7)){
                 printf("\nError: El email no es valido.");
             }
-        }while(strlen((buffer))>= sizeof(adoptante.email));
+        }while((strlen(buffer)>= sizeof(adoptante.email)) || (strlen(buffer) < 7));
         strcpy(adoptante.email, buffer);
-
 
     }
 
@@ -203,10 +202,8 @@ Adoptante modificarAdoptante(Adoptante adoptante){
             if((strlen(bufferTel)>= sizeof(adoptante.tel)) || strlen(bufferTel) < 7){
                 printf("\nError: El telefono no es valido.");
             }
-        }while(strlen((bufferTel))>= sizeof(adoptante.tel));
+        }while((strlen(bufferTel)>= sizeof(adoptante.tel)) || strlen(bufferTel) < 7);
         strcpy(adoptante.tel, bufferTel);
-
-
     }
 
     printf("\nDesea modificar la direccion del adoptante? (s/n): ");
@@ -221,7 +218,7 @@ Adoptante modificarAdoptante(Adoptante adoptante){
             if((strlen(buffer)>= sizeof(adoptante.direccion)) || (strlen(buffer) < 3)){
                 printf("\nError: Esta direccion no es valida.");
             }
-        }while(strlen((buffer))>= sizeof(adoptante.direccion));
+        }while((strlen(buffer)>= sizeof(adoptante.direccion)) || (strlen(buffer) < 3));
         strcpy(adoptante.direccion, buffer);
 
 
