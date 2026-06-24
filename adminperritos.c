@@ -714,7 +714,7 @@ void eliminarPerrito(char nombreArchivo[], int idBuscado)
 
     if(archivo == NULL || auxiliar == NULL)
     {
-        printf("\nError al abrir archivos");
+        printf("\nError al abrir archivos\n");
     }
     else
     {
