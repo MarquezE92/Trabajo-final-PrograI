@@ -46,18 +46,6 @@ void menuPrincipal(const char archivoPerritos[], const char archivoAdoptantes[],
 
     do
     {
-        printf("+-----------------------------------------+");
-        printf("\n| Quien nos visita hoy?                   |");
-        printf("\n+-----------------------------------------+");
-        printf("\n| \t 1.- Administrador                |");
-        printf("\n| \t 2.- Adoptante                    |");
-        printf("\n| \t 3.- Perrito                      |");
-        printf("\n| \t 0.- Salir                        |");
-        printf("\n+-----------------------------------------+");
-
-        printf("\nElige la opcion correcta: ");
-        scanf("%d", &opcion);
-
         printf("\n                     .");
         printf("\n                    / V\\");
         printf("\n                  / `  /");
@@ -69,6 +57,18 @@ void menuPrincipal(const char archivoPerritos[], const char archivoAdoptantes[],
         printf("\n          (      ) | |");
         printf("\n  ___|   _/  | |");
         printf("\n<___\\__)\\-)");
+        
+        printf("+-----------------------------------------+");
+        printf("\n| Quien nos visita hoy?                   |");
+        printf("\n+-----------------------------------------+");
+        printf("\n| \t 1.- Administrador                |");
+        printf("\n| \t 2.- Adoptante                    |");
+        printf("\n| \t 3.- Perrito                      |");
+        printf("\n| \t 0.- Salir                        |");
+        printf("\n+-----------------------------------------+");
+
+        printf("\nElige la opcion correcta: ");
+        scanf("%d", &opcion);
         
         system("cls");
 
