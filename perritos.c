@@ -291,8 +291,8 @@ Solicitud cargarSolicitudSimple(int id)
 
         if(strlen(buffer) < 2 || strlen(buffer) > 34)
         {
-            printf("\nError: El nombre no es valido.\n");
-        }
+            printf("\nError: El nombre debe tener entre 2 y 34 caracteres.\n");
+            }
 
     }while(strlen(buffer) < 2 || strlen(buffer) > 34);
 
@@ -308,7 +308,7 @@ Solicitud cargarSolicitudSimple(int id)
 
         if(strlen(buffer) < 5 || strlen(buffer) > 34)
         {
-            printf("\nError: El email no es valido.\n");
+            printf("\nError: El email debe tener entre 5 y 34 caracteres.\n");
         }
 
     }while(strlen(buffer) < 5 || strlen(buffer) > 34);
@@ -325,7 +325,7 @@ Solicitud cargarSolicitudSimple(int id)
 
         if(strlen(buffer) < 6 || strlen(buffer) > 19)
         {
-            printf("\nError: El telefono no es valido.\n");
+            printf("\nError: El telefono debe tener entre 6 y 19 caracteres.\n");
         }
 
     }while(strlen(buffer) < 6 || strlen(buffer) > 19);
