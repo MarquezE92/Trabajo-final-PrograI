@@ -145,3 +145,97 @@
 
 1782250120 source:c:\users\pabie\desktop\trabajo-final-prograi\metricas.c
 
+1782271725 source:d:\desktop\trabajo-final-prograi\adopciones.c
+	<stdio.h>
+	<stdlib.h>
+	"menuGeneral.h"
+	"adopciones.h"
+	"adminperritos.h"
+	"adoptantes.h"
+	"perritos.h"
+	"menuAdmin.h"
+	"pila.h"
+	<time.h>
+
+1782271725 d:\desktop\trabajo-final-prograi\menugeneral.h
+
+1782271725 d:\desktop\trabajo-final-prograi\adopciones.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"menuGeneral.h"
+	"pila.h"
+
+1782271725 d:\desktop\trabajo-final-prograi\pila.h
+
+1782271725 d:\desktop\trabajo-final-prograi\adminperritos.h
+	"menuGeneral.h"
+
+1782271725 d:\desktop\trabajo-final-prograi\adoptantes.h
+	"menuGeneral.h"
+
+1782271725 d:\desktop\trabajo-final-prograi\perritos.h
+	"menuGeneral.h"
+
+1782271725 d:\desktop\trabajo-final-prograi\menuadmin.h
+
+1782271725 source:d:\desktop\trabajo-final-prograi\adoptantes.c
+	"adoptantes.h"
+	<stdio.h>
+	<unistd.h>
+	<string.h>
+
+1782271725 source:d:\desktop\trabajo-final-prograi\main.c
+	<stdio.h>
+	<stdlib.h>
+	"menuGeneral.h"
+
+1782271725 source:d:\desktop\trabajo-final-prograi\menuadmin.c
+	<stdio.h>
+	<stdlib.h>
+	"adminperritos.h"
+	"adoptantes.h"
+	"adopciones.h"
+	"perritos.h"
+	"menuAdmin.h"
+	"metricas.h"
+
+1782271725 d:\desktop\trabajo-final-prograi\metricas.h
+
+1782271725 source:d:\desktop\trabajo-final-prograi\menugeneral.c
+	<stdio.h>
+	<stdlib.h>
+	"menuGeneral.h"
+	"adminperritos.h"
+	"adoptantes.h"
+	"adopciones.h"
+	"perritos.h"
+	"menuAdmin.h"
+	"pila.h"
+
+1782271725 source:d:\desktop\trabajo-final-prograi\metricas.c
+	<stdio.h>
+	<string.h>
+	"metricas.h"
+	"menuGeneral.h"
+
+1782271725 source:d:\desktop\trabajo-final-prograi\perritos.c
+	<stdio.h>
+	<stdlib.h>
+	"perritos.h"
+	"menuGeneral.h"
+	<time.h>
+	<string.h>
+
+1782271725 source:d:\desktop\trabajo-final-prograi\pila.c
+	<stdio.h>
+	"pila.h"
+
+1782275356 source:d:\desktop\trabajo-final-prograi\adminperritos.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"adminperritos.h"
+	"menuGeneral.h"
+
