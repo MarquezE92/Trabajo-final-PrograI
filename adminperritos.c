@@ -347,16 +347,29 @@ void menuFiltro(char nombreArchivo[])
             printf("\n2 - GRANDE");
             printf("\nSeleccione porte: ");
             scanf("%d", &port);
+            getchar();
             filtrarPorPorte(nombreArchivo,port,&vecIDs,&validos);
             menuGestionPerritos(nombreArchivo,vecIDs,validos);
             break;
 
         case 2:
 
-            printf("\n0 - MACHO");
-            printf("\n1 - HEMBRA");
-            printf("\nSeleccione genero: ");
-            scanf("%d", &gen);
+            do
+            {
+                printf("\n0 - MACHO");
+                printf("\n1 - HEMBRA");
+                printf("\nSeleccione genero: ");
+                if(scanf("%d", &gen)!=1 || (gen < 0 || gen > 2))
+                {
+                    printf("\nDebe ingresar una opcion valida");
+
+                    while(getchar()!='\n');
+
+                    gen=-1;
+                }
+
+            }
+            while(gen < 0 || gen > 2);
             filtrarPorGenero(nombreArchivo, gen, &vecIDs, &validos);
             menuGestionPerritos(nombreArchivo, vecIDs, validos);
             break;
@@ -365,6 +378,7 @@ void menuFiltro(char nombreArchivo[])
 
             printf("\nIngrese edad a buscar: ");
             scanf("%d", &edad);
+            getchar();
             filtrarPorEdad(nombreArchivo, edad, &vecIDs, &validos);
             menuGestionPerritos(nombreArchivo, vecIDs,  validos);
             break;
@@ -378,6 +392,7 @@ void menuFiltro(char nombreArchivo[])
             printf("\n4 - SOCIABLE");
             printf("\nSeleccione temperamento: ");
             scanf("%d", &temp);
+            getchar();
             filtrarPorTemperamento(nombreArchivo, temp, &vecIDs,&validos);
             menuGestionPerritos(nombreArchivo, vecIDs, validos);
             break;

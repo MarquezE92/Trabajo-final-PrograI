@@ -7,6 +7,7 @@
 #include "adopciones.h"
 #include "perritos.h"
 #include "menuAdmin.h"
+#include "metricas.h"
 
 void menuAdminGeneral()
 {
@@ -19,6 +20,7 @@ void menuAdminGeneral()
         printf("\n| \t 1.- Gestionar Perrito            |");
         printf("\n| \t 2.- Gestionar Adoptantes         |");
         printf("\n| \t 3.- Gestionar Adopciones         |");
+        printf("\n| \t 4.- Ver Metricas                 |");
         printf("\n| \t 0.- Salir                        |");
         printf("\n+-----------------------------------------+");
 
@@ -41,6 +43,10 @@ void menuAdminGeneral()
         case 3:
 
             menuGestionarAdopciones();
+            break;
+
+        case 4:
+            invocarMetricas();
             break;
 
         case 0:
