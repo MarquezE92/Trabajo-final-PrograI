@@ -3,6 +3,7 @@
 #include "menuGeneral.h"
 
 void menuAdoptante();
+void menuSeleccionAdoptante();
 Adoptante cargarAdoptanteSimple();
 void cargarAdoptante(char nombreArchivo[]);
 void mostrarAdoptante(Adoptante adoptante);

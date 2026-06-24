@@ -36,7 +36,7 @@ Adoptante cargarAdoptanteSimple()
             printf("\nError: El telefono no es valido.");
         }
     }while(strlen((bufferTel))>= sizeof(aux.tel));
-    strcpy(aux.tel, buffer);
+    strcpy(aux.tel, bufferTel);
 
     do{
         printf("\nCargue la direccion del adoptante: ");
@@ -52,25 +52,28 @@ Adoptante cargarAdoptanteSimple()
 
 void cargarAdoptante(char nombreArchivo[]){
     Adoptante aux;
-    char letra='s';
     FILE *pf= fopen(nombreArchivo,  "ab");
     if(pf == NULL){
         printf("\nNo se pudo abrir el archivo para cargar al adoptado");
     }else{
         aux = cargarAdoptanteSimple();
         fwrite(&aux, sizeof(Adoptante),1, pf);
+        printf("\n Adoptante registrado exitosamente!");
+        printf("\n");
+        mostrarAdoptante(aux);
         fclose(pf);
     }
 }
 
 void mostrarAdoptante(Adoptante adoptante){
     printf("\n--------------------------------\n");
-    printf("\n ID: %i", adoptante.idAdoptante);
-    printf("\nNombre: %s", adoptante.nombre);
-    printf("\n e-mail: %s", adoptante.email);
-    printf("\nTel: %s", adoptante.tel);
-    printf("\n Direcion: %s", adoptante.direccion);
+    printf("\tID: %i", adoptante.idAdoptante);
     printf("\n--------------------------------\n");
+    printf("\nNombre: %s", adoptante.nombre);
+    printf("\ne-mail: %s", adoptante.email);
+    printf("\nTel: %s", adoptante.tel);
+    printf("\nDirecion: %s", adoptante.direccion);
+    printf("\n.................................\n");
 }
 
 void mostrarTodosAdoptantes(char nombreArchivo[]){
@@ -119,27 +122,33 @@ int buscarPosicionPorId(char nombreArchivo[], int idAdoptante){
         };
         fclose(pf);
     }
+    return resultado;
 }
 
 void eliminarAdoptante(char nombreArchivo[], int idAdoptante){
+    system("cls");
     Adoptante aux;
     int posicionAeliminar = buscarPosicionPorId(nombreArchivo, idAdoptante);
-
-    FILE *pf= fopen(nombreArchivo,  "r+b");
-    if(pf == NULL){
-        printf("\nNo se pudo abrir el archivo para eliminar al adoptante");
-    }else{
-        fseek(pf, sizeof(Adoptante) * (posicionAeliminar + 1), SEEK_SET);
-        while(fread(&aux, sizeof(Adoptante),1, pf)>0){
-            fseek(pf, (-2)*sizeof(Adoptante), SEEK_CUR);
-            fwrite(&aux, sizeof(Adoptante), 1, pf);
-            fseek(pf, sizeof(Adoptante), SEEK_CUR);
+    if(posicionAeliminar < 0){
+    printf("No se encontro el adoptante\n");
+    } else {
+        FILE *pf= fopen(nombreArchivo,  "r+b");
+        if(pf == NULL){
+            printf("\nNo se pudo abrir el archivo para eliminar al adoptante");
+        }else{
+            fseek(pf, sizeof(Adoptante) * (posicionAeliminar + 1), SEEK_SET);
+            while(fread(&aux, sizeof(Adoptante),1, pf)>0){
+                fseek(pf, (-2)*sizeof(Adoptante), SEEK_CUR);
+                fwrite(&aux, sizeof(Adoptante), 1, pf);
+                fseek(pf, sizeof(Adoptante), SEEK_CUR);
+            }
+            fseek(pf, 0, SEEK_END);
+            long tam_actual = ftell(pf);
+            int fd = fileno(pf);
+            ftruncate(fd, tam_actual - sizeof(Adoptante));
+            printf("\n || Se retiro al adoptante seleccinado del registro || \n");
+            fclose(pf);
         }
-        fseek(pf, 0, SEEK_END);
-        long tam_actual = ftell(pf);
-        int fd = fileno(pf);
-        ftruncate(fd, tam_actual - sizeof(Adoptante));
-        fclose(pf);
     }
 }
 
@@ -152,11 +161,12 @@ Adoptante modificarAdoptante(Adoptante adoptante){
 
     if (opcion == 's' || opcion == 'S')
     {
+        while (getchar() != '\n');
         do{
             printf("\nNuevo nombre: ");
             fgets(buffer, sizeof(buffer),stdin);
             if((strlen(buffer)>= sizeof(adoptante.nombre)) || (strlen(buffer) < 3)){
-                printf("\nError: El nombre excede la cantidad de caracteres permitidos.");
+                printf("\nError: El nombre no es valido.");
             }
         }while(strlen((buffer))>= sizeof(adoptante.nombre));
         strcpy(adoptante.nombre, buffer);
@@ -168,11 +178,12 @@ Adoptante modificarAdoptante(Adoptante adoptante){
 
     if (opcion == 's' || opcion == 'S')
     {
+        while (getchar() != '\n');
         do{
             printf("\nNuevo email: ");
             fgets(buffer, sizeof(buffer),stdin);
             if((strlen(buffer)>= sizeof(adoptante.email)) || (strlen(buffer) < 7)){
-                printf("\nError: El email excede la cantidad de caracteres permitidos.");
+                printf("\nError: El email no es valido.");
             }
         }while(strlen((buffer))>= sizeof(adoptante.email));
         strcpy(adoptante.email, buffer);
@@ -185,6 +196,7 @@ Adoptante modificarAdoptante(Adoptante adoptante){
 
     if (opcion == 's' || opcion == 'S')
     {
+        while (getchar() != '\n');
         do{
             printf("\nNuevo telefono: ");
             fgets(bufferTel, sizeof(bufferTel),stdin);
@@ -202,6 +214,7 @@ Adoptante modificarAdoptante(Adoptante adoptante){
 
     if (opcion == 's' || opcion == 'S')
     {
+        while (getchar() != '\n');
         do{
             printf("\nNueva direccion: ");
             fgets(buffer, sizeof(buffer),stdin);
@@ -229,6 +242,8 @@ void modificarRegistroAdoptante(char nombreArchivo[], int posicion){
         aux = modificarAdoptante(aux);
         fseek(fp, posicion * sizeof(Adoptante), SEEK_SET);
         fwrite(&aux, sizeof(Adoptante), 1, fp);
+        system("cls");
+        mostrarAdoptante(aux);
         }
         fclose(fp);
     }
@@ -255,5 +270,100 @@ int obtenerIdAdoptante(){
 }
 
 void menuAdoptante(){
+    int opcion;
 
+    do
+    {
+        printf("+-----------------------------------------+");
+        printf("\n| \t 1.- Cargar Adoptante             |");
+        printf("\n| \t 2.- Mostrar Adoptantes           |");
+        printf("\n| \t 0.- Salir                        |");
+        printf("\n+-----------------------------------------+");
+
+        printf("\nElige la opcion correcta: ");
+        scanf("%d", &opcion);
+        system("cls");
+
+        switch(opcion)
+        {
+        case 1:
+            getchar();
+            cargarAdoptante(ARCHIVO_ADOPTANTES);
+            break;
+
+        case 2:
+            mostrarTodosAdoptantes(ARCHIVO_ADOPTANTES);
+            menuSeleccionAdoptante();
+            break;
+
+        case 0:
+            printf("\nGuau! digo, Chau...\n");
+            ///volver menu principal
+            break;
+
+        default:
+            printf("\nOpcion invalida.\n");
+            system("pause");
+            system("cls");
+            getchar();
+        }
+
+    }
+    while(opcion != 0);
 }
+
+void menuSeleccionAdoptante(){
+    char opcion = 's';
+    int idAdoptante, seleccion;
+
+    printf("Deseas seleccionar un adoptante? s/n: ");
+    scanf(" %c", &opcion);
+    if(opcion == 's'){
+
+        printf("Ingrese el ID del adoptante que desea seleccionar: ");
+        scanf("%i", &idAdoptante);
+        system("cls");
+        int posicion = buscarPosicionPorId(ARCHIVO_ADOPTANTES, idAdoptante);
+        if(posicion < 0){
+            printf("No pudo encontrarse un Adoptante con ese ID");
+        } else{
+            printf("Usted ha seleccionado a: \n\n");
+            mostrarAdoptantePorId(ARCHIVO_ADOPTANTES, idAdoptante);
+            do{
+                printf("+-------------------------------------------------------------\n");
+                printf("| .-Si desea modificar el perfil del adoptante, presione 1   |\n");
+                printf("| .-Si desea eliminar el perfil del adoptante, presione 2    |\n");
+                printf("| .-Para salir, presione 0                                   |\n");
+                printf("+-------------------------------------------------------------\n");
+                scanf("%i", &seleccion);
+                if(seleccion >2 && seleccion<0){
+                    printf("\n Esa no es una opcion valida, recuerde:\n");
+                }
+            }while(seleccion >2 && seleccion<0);
+
+            switch(seleccion)
+            {
+            case 1:
+                modificarRegistroAdoptante(ARCHIVO_ADOPTANTES, posicion);
+                break;
+
+            case 2:
+                eliminarAdoptante(ARCHIVO_ADOPTANTES, idAdoptante);
+                break;
+
+            case 0:
+                printf("\nGuau! digo, Chau...\n");
+                ///volver
+                break;
+
+            default:
+                printf("\nNo sabemos que hizo, deberia ser imposible que lea esto\n");
+                system("pause");
+                system("cls");
+                getchar();
+            }
+        }
+
+    }
+}
+
