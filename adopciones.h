@@ -26,6 +26,9 @@ void mostrarAdopciones(char archAdopciones[]);
 void pasarAHistorico(char archAdopciones[], char archHistorico[], int idPerrito);
 void menuGestionarAdopciones();
 void menuSeleccionAdopciones();
+void insertarAdopcion(Adopcion lista[], int pos);
+void ordenamientoInsercionAdopciones(Adopcion lista[], int validos);
+void ordenarArchivoAdopciones(char archAdopciones[]);
 
 
 /* PROTOTIPOS PILA */

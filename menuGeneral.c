@@ -41,7 +41,7 @@ void menuPrincipal(const char archivoPerritos[], const char archivoAdoptantes[],
 {
     int opcion;
     int validos = 0;
-    Perrito lista[15] = {};
+    Perrito lista[100] = {};
     inicializarPila(&historial);
 
     do
