@@ -192,6 +192,7 @@ void registrarAdopcion(char archPerritos[], char archAdoptantes[], char archAdop
     }
     while(idPerrito <= 0);
 
+
     do
     {
         printf("Ingrese ID del adoptante: ");
@@ -223,13 +224,13 @@ void registrarAdopcion(char archPerritos[], char archAdoptantes[], char archAdop
 
     if(exito)
     {
-        while(fread(&perri, sizeof(Perrito), 1, pfPerrito) > 0 && !encontroPerrito)
+        while(!encontroPerrito && fread(&perri, sizeof(Perrito), 1, pfPerrito) > 0 )
         {
             if(perri.idPerrito == idPerrito)
             {
                 encontroPerrito = 1;
 
-                if(perri.estado == ADOPTADO)
+                if(perri.estado == 1)
                 {
                     printf("\nEse perrito ya fue adoptado.\n");
                     exito = 0;
@@ -288,7 +289,7 @@ void registrarAdopcion(char archPerritos[], char archAdoptantes[], char archAdop
 
         fseek(pfPerrito, -(long)sizeof(Perrito), SEEK_CUR);
 
-        perri.estado = ADOPTADO;
+        perri.estado = 1;
 
         fwrite(&perri, sizeof(Perrito), 1, pfPerrito);
 
