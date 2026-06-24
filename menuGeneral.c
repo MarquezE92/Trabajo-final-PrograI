@@ -57,6 +57,7 @@ void menuPrincipal(const char archivoPerritos[], const char archivoAdoptantes[],
         printf("\n          (      ) | |");
         printf("\n  ___|   _/  | |");
         printf("\n<___\\__)\\-)");
+        fflush(stdout);
         
         printf("+-----------------------------------------+");
         printf("\n| Quien nos visita hoy?                   |");
