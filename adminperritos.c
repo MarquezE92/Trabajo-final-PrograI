@@ -672,7 +672,7 @@ void modificarPerrito(char nombreArchivo[], int idBuscado)
     }
     else
     {
-        while(fread(&aux, sizeof(Perrito), 1, pf) > 0 && !encontrado)
+        while(!encontrado && fread(&aux, sizeof(Perrito), 1, pf) > 0)
         {
             if(aux.idPerrito == idBuscado)
             {
@@ -710,7 +710,7 @@ void eliminarPerrito(char nombreArchivo[], int idBuscado)
     int encontrado = 0;
 
     FILE *archivo = fopen(nombreArchivo, "rb");
-    FILE *auxiliar = fopen("aux.dat", "wb");
+    FILE *auxiliar = fopen("aux.bin", "wb");
 
     if(archivo == NULL || auxiliar == NULL)
     {
@@ -739,12 +739,12 @@ void eliminarPerrito(char nombreArchivo[], int idBuscado)
         if(encontrado)
         {
             remove(nombreArchivo);
-            rename("aux.dat", nombreArchivo);
+            rename("aux.bin", nombreArchivo);
             printf("\n\nPerrito eliminado correctamente.\n");
         }
         else
         {
-            remove("aux.dat");
+            remove("aux.bin");
             printf("\n\nNo existe un perrito con ID %d.\n", idBuscado);
         }
     }
@@ -781,10 +781,11 @@ void cargaMasivaPerritos(char nombreArchivo[])
 
 void agregarID(int **vec, int *validos, int id)
 {
-    *vec = realloc(*vec, sizeof(int) * (*validos + 1));
+    int *aux = realloc(*vec, sizeof(int) * (*validos + 1));
 
-    if(*vec != NULL)
+    if(*aux != NULL)
     {
+        (*vec) = aux;
         (*vec)[*validos] = id;
         (*validos)++;
     }

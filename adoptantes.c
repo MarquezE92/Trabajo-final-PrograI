@@ -2,7 +2,6 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
 #include <string.h>
 
 Adoptante cargarAdoptanteSimple()
@@ -131,28 +130,6 @@ void eliminarAdoptante(char nombreArchivo[], int idAdoptante){
     Adoptante aux;
     int encontrado = 0;
 
-    /*int posicionAeliminar = buscarPosicionPorId(nombreArchivo, idAdoptante);
-    if(posicionAeliminar < 0){
-    printf("\nNo se encontro el adoptante\n");
-    } else {
-        FILE *pf= fopen(nombreArchivo,  "r+b");
-        if(pf == NULL){
-            printf("\nNo se pudo abrir el archivo para eliminar al adoptante");
-        }else{
-            fseek(pf, sizeof(Adoptante) * (posicionAeliminar + 1), SEEK_SET);
-            while(fread(&aux, sizeof(Adoptante),1, pf)>0){
-                fseek(pf, (-2)*sizeof(Adoptante), SEEK_CUR);
-                fwrite(&aux, sizeof(Adoptante), 1, pf);
-                fseek(pf, sizeof(Adoptante), SEEK_CUR);
-            }
-            fseek(pf, 0, SEEK_END);
-            long tam_actual = ftell(pf);
-            int fd = fileno(pf);
-            ftruncate(fd, tam_actual - sizeof(Adoptante));
-            printf("\n || Se retiro al adoptante seleccinado del registro || \n");
-            fclose(pf);
-        }
-    }*/
     FILE *archivo = fopen(nombreArchivo, "rb");
     FILE *auxiliar = fopen("aux_adoptantes.dat", "wb");
 
@@ -198,8 +175,17 @@ Adoptante modificarAdoptante(Adoptante adoptante){
     char opcion = 'n';
     char buffer[235], bufferTel[212];
 
-    printf("\nDesea modificar el nombre de pila del adoptante? (s/n): ");
-    scanf(" %c", &opcion);
+    do{
+        printf("\nDesea modificar el nombre de pila del adoptante? (s/n): ");
+       if(scanf(" %c", &opcion) !=1 || (opcion != 's' && opcion != 'S' && opcion != 'n' && opcion != 'N' ))
+        {
+                printf("\nDebe ingresar una opcion valida (S o N)\n");
+                while (getchar() != '\n');
+                opcion = 'w';
+        }
+
+    }while (opcion != 's' && opcion != 'S' && opcion != 'n' && opcion != 'N' );
+
 
     if (opcion == 's' || opcion == 'S')
     {
@@ -215,8 +201,18 @@ Adoptante modificarAdoptante(Adoptante adoptante){
 
 
     }
-    printf("\nDesea modificar el email del adoptante? (s/n): ");
-    scanf(" %c", &opcion);
+
+    do{
+        printf("\nDesea modificar el email del adoptante? (s/n): ");
+       if(scanf(" %c", &opcion) !=1 || (opcion != 's' && opcion != 'S' && opcion != 'n' && opcion != 'N' ))
+        {
+                printf("\nDebe ingresar una opcion valida (S o N)\n");
+                while (getchar() != '\n');
+                opcion = 'w';
+        }
+
+    }while (opcion != 's' && opcion != 'S' && opcion != 'n' && opcion != 'N' );
+
 
     if (opcion == 's' || opcion == 'S')
     {
@@ -232,8 +228,17 @@ Adoptante modificarAdoptante(Adoptante adoptante){
 
     }
 
-    printf("\nDesea modificar el telefono del adoptante? (s/n): ");
-    scanf(" %c", &opcion);
+    do{
+        printf("\nDesea modificar el telefono del adoptante? (s/n): ");
+       if(scanf(" %c", &opcion) !=1 || (opcion != 's' && opcion != 'S' && opcion != 'n' && opcion != 'N' ))
+        {
+                printf("\nDebe ingresar una opcion valida (S o N)\n");
+                while (getchar() != '\n');
+                opcion = 'w';
+        }
+
+    }while (opcion != 's' && opcion != 'S' && opcion != 'n' && opcion != 'N' );
+
 
     if (opcion == 's' || opcion == 'S')
     {
@@ -248,8 +253,16 @@ Adoptante modificarAdoptante(Adoptante adoptante){
         strcpy(adoptante.tel, bufferTel);
     }
 
-    printf("\nDesea modificar la direccion del adoptante? (s/n): ");
-    scanf(" %c", &opcion);
+    do{
+       printf("\nDesea modificar la direccion del adoptante? (s/n): ");
+       if(scanf(" %c", &opcion) !=1 || (opcion != 's' && opcion != 'S' && opcion != 'n' && opcion != 'N' ))
+        {
+                printf("\nDebe ingresar una opcion valida (S o N)\n");
+                while (getchar() != '\n');
+                opcion = 'w';
+        }
+
+    }while (opcion != 's' && opcion != 'S' && opcion != 'n' && opcion != 'N' );
 
     if (opcion == 's' || opcion == 'S')
     {
@@ -362,8 +375,17 @@ void menuSeleccionAdoptante(){
     char opcion = 's';
     int idAdoptante, seleccion;
 
-    printf("\nDeseas seleccionar un adoptante? s/n: ");
-    scanf(" %c", &opcion);
+    do{
+       printf("\nDeseas seleccionar un adoptante? s/n: ");
+       if(scanf(" %c", &opcion) !=1 || (opcion != 's' && opcion != 'S' && opcion != 'n' && opcion != 'N' ))
+        {
+                printf("\nDebe ingresar una opcion valida (S o N)\n");
+                while (getchar() != '\n');
+                opcion = 'w';
+        }
+
+    }while (opcion != 's' && opcion != 'S' && opcion != 'n' && opcion != 'N' );
+
     if(opcion == 's'){
 
         printf("\nIngrese el ID del adoptante que desea seleccionar: ");
