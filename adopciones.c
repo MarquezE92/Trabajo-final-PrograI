@@ -377,7 +377,7 @@ void cargarObservacion(char archAdopciones[], int idPerrito)
                         do
                         {
                             printf("Ingrese observacion: ");
-                            getchar();
+
                             fgets(aux.observaciones[i].comentario, sizeof(aux.observaciones[i].comentario), stdin);
 
                             aux.observaciones[i].comentario[strcspn(aux.observaciones[i].comentario, "\n")] = '\0';
