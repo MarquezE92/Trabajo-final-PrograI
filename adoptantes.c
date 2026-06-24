@@ -1,4 +1,5 @@
 #include "adoptantes.h"
+
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
@@ -51,6 +52,7 @@ Adoptante cargarAdoptanteSimple()
 
 void cargarAdoptante(char nombreArchivo[]){
     Adoptante aux;
+    char letra='s';
     FILE *pf= fopen(nombreArchivo,  "ab");
     if(pf == NULL){
         printf("\nNo se pudo abrir el archivo para cargar al adoptado");

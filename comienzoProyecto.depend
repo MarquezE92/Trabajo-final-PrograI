@@ -35,21 +35,28 @@
 1782249559 c:\users\pabie\desktop\trabajo-final-prograi\adminperritos.h
 	"menuGeneral.h"
 
-1782249559 c:\users\pabie\desktop\trabajo-final-prograi\menugeneral.h
+1782255329 c:\users\pabie\desktop\trabajo-final-prograi\menugeneral.h
 
-1782249559 source:c:\users\pabie\desktop\trabajo-final-prograi\adopciones.c
+1782257799 source:c:\users\pabie\desktop\trabajo-final-prograi\adopciones.c
+	<stdio.h>
+	<stdlib.h>
 	"menuGeneral.h"
 	"adopciones.h"
+	"adminperritos.h"
+	"adoptantes.h"
+	"perritos.h"
+	"menuAdmin.h"
 	"pila.h"
 	<time.h>
 
-1782167407 c:\users\pabie\desktop\trabajo-final-prograi\adopciones.h
+1782256551 c:\users\pabie\desktop\trabajo-final-prograi\adopciones.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"menuGeneral.h"
+	"pila.h"
 
-1782249559 source:c:\users\pabie\desktop\trabajo-final-prograi\adoptantes.c
+1782257486 source:c:\users\pabie\desktop\trabajo-final-prograi\adoptantes.c
 	"adoptantes.h"
 	<stdio.h>
 	<unistd.h>
@@ -58,7 +65,7 @@
 1782249559 c:\users\pabie\desktop\trabajo-final-prograi\adoptantes.h
 	"menuGeneral.h"
 
-1782249559 source:c:\users\pabie\desktop\trabajo-final-prograi\menugeneral.c
+1782256461 source:c:\users\pabie\desktop\trabajo-final-prograi\menugeneral.c
 	<stdio.h>
 	<stdlib.h>
 	"menuGeneral.h"
@@ -67,6 +74,7 @@
 	"adopciones.h"
 	"perritos.h"
 	"menuAdmin.h"
+	"pila.h"
 
 1782164974 source:c:\users\vsuyk\desktop\utn\programacion 1\comienzoproyecto\comienzoproyecto\adminperritos.c
 	<stdio.h>
@@ -120,18 +128,20 @@
 
 1782249559 c:\users\pabie\desktop\trabajo-final-prograi\pila.h
 
-1782249559 c:\users\pabie\desktop\trabajo-final-prograi\menuadmin.h
+1782251264 c:\users\pabie\desktop\trabajo-final-prograi\menuadmin.h
 
 1782249559 source:c:\users\pabie\desktop\trabajo-final-prograi\pila.c
 	<stdio.h>
 	"pila.h"
 
-1782250105 source:c:\users\pabie\desktop\trabajo-final-prograi\menuadmin.c
+1782251160 source:c:\users\pabie\desktop\trabajo-final-prograi\menuadmin.c
 	<stdio.h>
 	<stdlib.h>
-	"menuAdmin.h"
 	"adminperritos.h"
-	"menuGeneral.h"
+	"adoptantes.h"
+	"adopciones.h"
+	"perritos.h"
+	"menuAdmin.h"
 
 1782250120 source:c:\users\pabie\desktop\trabajo-final-prograi\metricas.c
 

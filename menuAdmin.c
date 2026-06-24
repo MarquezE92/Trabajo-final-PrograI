@@ -40,7 +40,7 @@ void menuAdminGeneral()
 
         case 3:
 
-            //edita(nombreArchivo);
+            menuGestionarAdopciones();
             break;
 
         case 0:

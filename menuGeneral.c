@@ -7,6 +7,7 @@
 #include "adopciones.h"
 #include "perritos.h"
 #include "menuAdmin.h"
+#include "pila.h"
 
 const char *porteTexto[] =
 {
@@ -41,6 +42,7 @@ void menuPrincipal(const char archivoPerritos[], const char archivoAdoptantes[],
     int opcion;
     int validos = 0;
     Perrito lista[15] = {};
+    inicializarPila(&historial);
 
     do
     {

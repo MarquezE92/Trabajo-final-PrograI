@@ -5,6 +5,7 @@
 #define ARCHIVO_ADOPTANTES "adoptantes.bin"
 #define ARCHIVO_SOLICITUDES "solicitudes.bin"
 #define ARCHIVO_ADOPCIONES "adopciones.bin"
+#define ARCHIVO_HISTORICO "historico.bin"
 
 extern const char *porteTexto[];
 extern const char *generoTexto[];

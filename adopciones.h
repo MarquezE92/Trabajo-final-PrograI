@@ -6,6 +6,7 @@
 #include <string.h>
 
 #include "menuGeneral.h"
+#include "pila.h"
 
 #define MAX_PILA 50
 
@@ -15,12 +16,17 @@ typedef struct
     int tope;
 } PilaAdopciones;
 
+extern PilaAdopciones historial;
+
 /* PROTOTIPOS ADOPCIONES */
 
 void registrarAdopcion(char archPerritos[], char archAdoptantes[], char archAdopciones[]);
 void cargarObservacion(char archAdopciones[], int idPerrito);
 void mostrarAdopciones(char archAdopciones[]);
 void pasarAHistorico(char archAdopciones[], char archHistorico[], int idPerrito);
+void menuGestionarAdopciones();
+void menuSeleccionAdopciones();
+
 
 /* PROTOTIPOS PILA */
 
