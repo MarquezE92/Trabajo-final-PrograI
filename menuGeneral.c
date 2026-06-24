@@ -106,7 +106,7 @@ int archivoAArreglo(char nombreArchivo[], Perrito lista[])
 
     if(pf)
     {
-        while(validos < 15 &&
+        while(validos < 100 &&
                 fread(&lista[validos], sizeof(Perrito), 1, pf) > 0)
         {
             validos++;
