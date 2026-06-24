@@ -56,7 +56,7 @@ void menuPrincipal(const char archivoPerritos[], const char archivoAdoptantes[],
         printf("\n           /    \\  \\ /");
         printf("\n          (      ) | |");
         printf("\n  ___|   _/  | |");
-        printf("\n<___\\__)\\-)");
+        printf("\n<___\\__)\\-)\n");
         fflush(stdout);
         
         printf("+-----------------------------------------+");
