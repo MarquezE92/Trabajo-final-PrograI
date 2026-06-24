@@ -18,8 +18,8 @@ void menuAdminGeneral()
     {
         printf("+-----------------------------------------+");
         printf("\n| \t 1.- Gestionar Perrito            |");
-        printf("\n| \t 2.- Gestionar Adoptantes         |");
-        printf("\n| \t 3.- Gestionar Adopciones         |");
+        printf("\n| \t 2.- Gestionar Adoptantes        |");
+        printf("\n| \t 3.- Gestionar Adopciones        |");
         printf("\n| \t 4.- Ver Metricas                 |");
         printf("\n| \t 0.- Salir                        |");
         printf("\n+-----------------------------------------+");
