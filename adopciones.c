@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "menuGeneral.h"
 #include "adopciones.h"
@@ -239,14 +240,11 @@ void registrarAdopcion(char archPerritos[], char archAdoptantes[], char archAdop
 
     if(exito)
     {
-        posicionRegistro = ftell(pfPerrito);
-
-        while(!encontroPerrito && fread(&perri, sizeof(Perrito), 1, pfPerrito) > 0 )
+        while(fread(&perri, sizeof(Perrito), 1, pfPerrito) > 0)
         {
             if(perri.idPerrito == idPerrito)
             {
                 encontroPerrito = 1;
-
                 if(perri.estado == 1)
                 {
                     printf("\nEse perrito ya fue adoptado.\n");
@@ -254,8 +252,9 @@ void registrarAdopcion(char archPerritos[], char archAdoptantes[], char archAdop
                 }
                 else
                 {
-                    posicionRegistro = ftell(pfPerrito);
+                    posicionRegistro = ftell(pfPerrito) - sizeof(Perrito);
                 }
+
             }
         }
 
