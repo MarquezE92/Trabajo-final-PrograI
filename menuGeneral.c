@@ -58,6 +58,18 @@ void menuPrincipal(const char archivoPerritos[], const char archivoAdoptantes[],
         printf("\nElige la opcion correcta: ");
         scanf("%d", &opcion);
 
+        printf("\n                     .");
+        printf("\n                    / V\\");
+        printf("\n                  / `  /");
+        printf("\n                 <<   |");
+        printf("\n                 /    |");
+        printf("\n               /      |");
+        printf("\n             /        |");
+        printf("\n           /    \\  \\ /");
+        printf("\n          (      ) | |");
+        printf("\n  ___|   _/  | |");
+        printf("\n<___\\__)\\-)");
+        
         system("cls");
 
         switch(opcion)
