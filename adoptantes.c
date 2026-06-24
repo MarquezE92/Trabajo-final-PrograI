@@ -246,24 +246,27 @@ void modificarRegistroAdoptante(char nombreArchivo[], int posicion){
     }
 }
 
-int obtenerIdAdoptante(){
-    int id;
+int obtenerIdAdoptante()
+{
+    int mayorId = 0;
     Adoptante aux;
+
     FILE *fp = fopen(ARCHIVO_ADOPTANTES, "rb");
-    if(fp == NULL){
-        printf("\nNo se pudo acceder al archivo de Adoptantes para obetener el ID");
-    }else{
-        if(fread(&aux, sizeof(Adoptante), 1, fp) != 1){
-            id = 1;
-        }else{
-        fseek(fp, -sizeof(Adoptante), SEEK_END);
-        fread(&aux, sizeof(Adoptante), 1, fp);
-        id = aux.idAdoptante + 1;
+
+    if(fp)
+    {
+        while(fread(&aux, sizeof(Adoptante), 1, fp) > 0)
+        {
+            if(aux.idAdoptante > mayorId)
+            {
+                mayorId = aux.idAdoptante;
+            }
         }
 
         fclose(fp);
     }
-    return id;
+
+    return mayorId + 1;
 }
 
 void menuAdoptante(){
@@ -289,6 +292,7 @@ void menuAdoptante(){
             break;
 
         case 2:
+            ordenarArchivoAdoptantes(ARCHIVO_ADOPTANTES);
             mostrarTodosAdoptantes(ARCHIVO_ADOPTANTES);
             menuSeleccionAdoptante();
             break;
@@ -364,3 +368,71 @@ void menuSeleccionAdoptante(){
     }
 }
 
+int buscarMenorAdoptante(Adoptante lista[], int inicio, int validos)
+{
+    int posMenor = inicio;
+    int i;
+
+    for(i = inicio + 1; i < validos; i++)
+    {
+        if(strcmp(lista[i].nombre, lista[posMenor].nombre) < 0)
+        {
+            posMenor = i;
+        }
+    }
+
+    return posMenor;
+}
+
+void intercambiarAdoptantes(Adoptante lista[], int pos1, int pos2)
+{
+    Adoptante aux;
+
+    aux = lista[pos1];
+    lista[pos1] = lista[pos2];
+    lista[pos2] = aux;
+}
+
+void ordenamientoSeleccionAdoptantes(Adoptante lista[], int validos)
+{
+    int i;
+    int posMenor;
+
+    for(i = 0; i < validos - 1; i++)
+    {
+        posMenor = buscarMenorAdoptante(lista, i, validos);
+
+        intercambiarAdoptantes(lista, i, posMenor);
+    }
+}
+
+void ordenarArchivoAdoptantes(char archAdoptantes[])
+{
+    Adoptante lista[100];
+    int validos = 0;
+
+    FILE *pf = fopen(archAdoptantes, "rb");
+
+    if(pf)
+    {
+        while(fread(&lista[validos], sizeof(Adoptante), 1, pf) > 0)
+        {
+            validos++;
+        }
+
+        fclose(pf);
+
+        ordenamientoSeleccionAdoptantes(lista, validos);
+
+        pf = fopen(archAdoptantes, "wb");
+
+        if(pf)
+        {
+            fwrite(lista, sizeof(Adoptante), validos, pf);
+
+            fclose(pf);
+
+            printf("\nArchivo ordenado por nombre.\n");
+        }
+    }
+}

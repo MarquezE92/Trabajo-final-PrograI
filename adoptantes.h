@@ -14,7 +14,10 @@ void eliminarAdoptante(char nombreArchivo[], int idAdoptante);
 Adoptante modificarAdoptante(Adoptante adoptante);
 void modificarRegistroAdoptante(char nombreArchivo[], int posicion);
 int obtenerIdAdoptante();
-
+int buscarMenorAdoptante(Adoptante lista[], int inicio, int validos);
+void intercambiarAdoptantes(Adoptante lista[], int pos1, int pos2);
+void ordenamientoSeleccionAdoptantes(Adoptante lista[], int validos);
+void ordenarArchivoAdoptantes(char archAdoptantes[]);
 
 #endif // ADOPTANTES_H_INCLUDED
 

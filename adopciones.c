@@ -36,7 +36,7 @@ void menuGestionarAdopciones()
             break;
 
         case 2:
-
+            ordenarArchivoAdopciones(ARCHIVO_ADOPCIONES);
             mostrarAdopciones(ARCHIVO_ADOPCIONES);
             menuSeleccionAdopciones();
             break;
@@ -76,6 +76,7 @@ void menuSeleccionAdopciones()
         case 1:
 
             registrarAdopcion(ARCHIVO_PERRITOS, ARCHIVO_ADOPTANTES,ARCHIVO_ADOPCIONES);
+            ordenarArchivoAdopciones(ARCHIVO_ADOPCIONES);
             break;
 
         case 2:
@@ -407,10 +408,54 @@ void mostrarAdopciones(char archAdopciones[])
         {
             int hayObservaciones = 0;
 
+            char nombrePerrito[35] = "No encontrado";
+            char nombreAdoptante[35] = "No encontrado";
+
+            Perrito perri;
+            Adoptante adop;
+
+            FILE *pfP = fopen(ARCHIVO_PERRITOS, "rb");
+
+            if(pfP)
+            {
+                while(fread(&perri, sizeof(Perrito), 1, pfP) > 0)
+                {
+                    if(perri.idPerrito == aux.idPerrito)
+                    {
+                        strcpy(nombrePerrito, perri.nombre);
+                        break;
+                    }
+                }
+
+                fclose(pfP);
+            }
+
+            FILE *pfA = fopen(ARCHIVO_ADOPTANTES, "rb");
+
+            if(pfA)
+            {
+                while(fread(&adop, sizeof(Adoptante), 1, pfA) > 0)
+                {
+                    if(adop.idAdoptante == aux.idAdoptante)
+                    {
+                        strcpy(nombreAdoptante, adop.nombre);
+                        break;
+                    }
+                }
+
+                fclose(pfA);
+            }
+
             cont++;
 
-            printf("\nPerrito ID   : %i", aux.idPerrito);
-            printf("\nAdoptante ID : %i", aux.idAdoptante);
+            printf("\nPerrito ID   : %d - %s",
+                   aux.idPerrito,
+                   nombrePerrito);
+
+            printf("\nAdoptante ID : %d - %s",
+                   aux.idAdoptante,
+                   nombreAdoptante);
+
             printf("\nObservaciones:");
 
             for(int i = 0; i < 6; i++)
@@ -571,5 +616,59 @@ void mostrarPila(PilaAdopciones *pila)
                    pila->elementos[i].idAdoptante);
         }
         printf("\n============================================\n");
+    }
+}
+
+void insertarAdopcion(Adopcion lista[], int pos)
+{
+    Adopcion aux = lista[pos];
+    int i = pos - 1;
+
+    while(i >= 0 && lista[i].idPerrito > aux.idPerrito)
+    {
+        lista[i + 1] = lista[i];
+        i--;
+    }
+
+    lista[i + 1] = aux;
+}
+
+void ordenamientoInsercionAdopciones(Adopcion lista[], int validos)
+{
+    int i;
+
+    for(i = 1; i < validos; i++)
+    {
+        insertarAdopcion(lista, i);
+    }
+}
+
+void ordenarArchivoAdopciones(char archAdopciones[])
+{
+    Adopcion lista[100];
+    int validos = 0;
+
+    FILE *pf = fopen(archAdopciones, "rb");
+
+    if(pf)
+    {
+        while(fread(&lista[validos], sizeof(Adopcion), 1, pf) > 0)
+        {
+            validos++;
+        }
+
+        fclose(pf);
+
+        ordenamientoInsercionAdopciones(lista, validos);
+
+        pf = fopen(archAdopciones, "wb");
+
+        if(pf)
+        {
+            fwrite(lista, sizeof(Adopcion), validos, pf);
+            fclose(pf);
+
+            printf("\nArchivo de adopciones ordenado por ID de perrito.\n");
+        }
     }
 }
