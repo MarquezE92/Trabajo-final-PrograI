@@ -7,8 +7,8 @@ void mostrarUnPerrito(Perrito perri);
 void mostrarListadoPerritosRecursivo(Perrito lista[], int valido, int i);
 void filtrarPerritos(Perrito lista[], int validos);
 void mostrarMenuAdoptante(Perrito lista[], int validos, char archivoSolicitudes[]);
-Solicitud cargarSolicitudSimple();
-void cargarSolicitud(char nombreArchivo[]);
+Solicitud cargarSolicitudSimple(int id);
+void cargarSolicitud(char nombreArchivo[], int id);
 void mostrarInfoContacto();
 
 #endif // PERRITOS_H_INCLUDED
