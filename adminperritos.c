@@ -449,7 +449,7 @@ void menuFiltro(char nombreArchivo[])
 
         case 0:
 
-            menuEdicionPerritos(nombreArchivo);
+            printf("\nChau...\n");
             break;
 
         default:
