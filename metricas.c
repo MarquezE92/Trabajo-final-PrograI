@@ -1,8 +1,11 @@
-/*#include <stdio.h>
+#include <stdio.h>
+#include <string.h>
+#include "metricas.h"
+#include "menuGeneral.h"
 
 int obtenerMes(char fecha[])
 {
-    int dia; mes, anio;
+    int dia, mes, anio;
 
     sscanf(fecha, "%d/%d/%d",&dia, &mes, &anio);
 
@@ -45,7 +48,7 @@ void cargarMetricasPerros(char nombreArchivo[], int metricasMat[MESES][COLUMNAS]
     }
 }
 
-void cargarMetricaaAdopciones(char nombreArchivo[], int metricasMat[MESES][COLUMNAS])
+void cargarMetricasAdopciones(char nombreArchivo[], int metricasMat[MESES][COLUMNAS])
 {
     Adopcion adopcion;
 
@@ -76,9 +79,9 @@ void generarEstadisticasMensuales(int estadisticas[MESES][COLUMNAS], char archiv
 {
     inicializarMatriz(estadisticas);
 
-    cargarEstadisticasPerros(archivoPerros, estadisticas);
+    cargarMetricasPerros(archivoPerros, estadisticas);
 
-    cargarEstadisticasAdopciones(archivoAdopciones, estadisticas);
+    cargarMetricasAdopciones(archivoAdopciones, estadisticas);
 }
 
 void mostrarEstadisticas(int estadisticas[MESES][COLUMNAS])
@@ -114,4 +117,9 @@ void mostrarEstadisticas(int estadisticas[MESES][COLUMNAS])
                estadisticas[i][COL_ADOPCIONES]);
     }
 }
-*/
+
+void invocarMetricas(){
+    int estadisticas[MESES][COLUMNAS];
+    generarEstadisticasMensuales(estadisticas, ARCHIVO_PERRITOS, ARCHIVO_ADOPCIONES);
+    mostrarEstadisticas(estadisticas);
+}
