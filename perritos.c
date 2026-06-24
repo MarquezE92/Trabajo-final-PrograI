@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "perritos.h"
 #include "menuGeneral.h"
+#include <time.h>
+#include <string.h>
 
 
 void mostrarMenuAdoptante(Perrito lista[], int validos, char archivoSolicitudes[])
@@ -54,11 +56,15 @@ void mostrarMenuAdoptante(Perrito lista[], int validos, char archivoSolicitudes[
                     }
                 }
                 if(!encontrado) printf("\nNo se encontro el ID ingresado.\n");
+                system("pause");
+                system("cls");
             }
             break;
 
         case 2:
             filtrarPerritos(lista, validos);
+            system("pause");
+            system("cls");
             break;
 
         case 3:
@@ -82,7 +88,13 @@ void mostrarMenuAdoptante(Perrito lista[], int validos, char archivoSolicitudes[
                     break;
                 }
             }
-            if(!encontrado) printf("\nNo existe ningun perrito con ese ID.\n");
+            if(!encontrado)
+            {
+                printf("\nNo existe ningun perrito con ese ID.\n");
+            }
+
+            system("pause");
+            system("cls");
             break;
 
         case 4:
@@ -90,11 +102,13 @@ void mostrarMenuAdoptante(Perrito lista[], int validos, char archivoSolicitudes[
             system("pause");
             system("cls");
             break;
+
         default:
 
             printf("\nOpcion invalida.\n");
             system("pause");
             system("cls");
+            getchar();
 
         }
 
@@ -122,18 +136,51 @@ void cargarSolicitud(char nombreArchivo[])
 Solicitud cargarSolicitudSimple()
 {
     Solicitud aux;
- ///Agregar validaciones
+    char buffer[100];
+
+///Agregar validaciones
     printf("Cargue el ID del perrito: ");
     scanf("%d", &aux.idPerrito);
-    fflush(stdin);
-    printf("Cargue nombre del solicitante: ");
-    gets(aux.solicitante);
 
-    printf("Ingrese su email: ");
-    gets(aux.email);
+    /// nombre solicitante
+    do
+    {
+        printf("Cargue nombre del solicitante: ");
+        fgets(buffer, sizeof(buffer), stdin);
+        if((strlen(buffer) >= 35) || (strlen(buffer) < 2))
+        {
+            printf("\nError: El nombre no es valido.");
+        }
+    }
+    while(strlen(buffer) >= 35);
+    strcpy(aux.solicitante, buffer);
 
-    printf("Ingrese su Telefono: ");
-    gets(aux.tel);
+    ///email
+
+    do
+    {
+        printf("Ingrese su email: ");
+        fgets(buffer, sizeof(buffer), stdin);
+        if((strlen(buffer) >= 35) || (strlen(buffer) < 5))
+        {
+            printf("\nError: El email no es valido.");
+        }
+    }
+    while(strlen(buffer) >= 35);
+    strcpy(aux.email, buffer);
+    ///telefono
+
+    do
+    {
+        printf("Ingrese su Telefono: ");
+        fgets(buffer, sizeof(buffer), stdin);
+        if((strlen(buffer) >= 20) || (strlen(buffer) < 6))
+        {
+            printf("\nError: El telefono no es valido.");
+        }
+    }
+    while(strlen(buffer) >= 20);
+    strcpy(aux.tel, buffer);
 
     return aux;
 }
@@ -142,17 +189,59 @@ Perrito cargarPerrito()
 {
     Perrito aux;
     int op;
+    char buffer[100];
+
     printf("Cargue el ID del perrito: ");
     scanf("%d", &aux.idPerrito);
-    printf("Cargue la edad del perrito: ");
-    scanf("%d", &aux.edad);
-    getchar();
-    printf("Cargue el nombre del perrito: ");
-    gets(aux.nombre);
-    printf("Cargue la raza del perrito: ");
-    gets(aux.raza);
-    printf("Cargue fecha actual perrito: ");
-    gets(aux.fechaIngreso);
+
+    ///edad
+    do
+    {
+        printf("Cargue la edad del perrito (0-30): ");
+        scanf("%d", &aux.edad);
+
+        if (aux.edad < 0 || aux.edad > 30)
+        {
+            printf("Edad inválida. Por favor, ingrese un rango coherente.\n");
+        }
+    }
+    while (aux.edad < 0 || aux.edad > 30);
+
+    ///nombre
+    do
+    {
+        printf("Cargue el nombre del perrito: ");
+        fgets(buffer, sizeof(buffer), stdin);
+        if((strlen(buffer) >= 35) || (strlen(buffer) < 2))
+        {
+            printf("\nError: El nombre no es valido.");
+        }
+    }
+    while(strlen(buffer) >= 35);
+    strcpy(aux.nombre, buffer);
+    ///raza
+    do
+    {
+        printf("Cargue la raza del perrito: ");
+        fgets(buffer, sizeof(buffer), stdin);
+        if((strlen(buffer) >= 35) || (strlen(buffer) < 2))
+        {
+            printf("\nError: La raza no es valida.");
+        }
+    }
+    while(strlen(buffer) >= 35);
+    strcpy(aux.raza, buffer);
+
+    ///ingreso
+    time_t t = time(NULL);
+    struct tm *fecha = localtime(&t);
+
+    sprintf(aux.fechaIngreso,
+            "%02d/%02d/%04d",
+            fecha->tm_mday,
+            fecha->tm_mon + 1,
+            fecha->tm_year + 1900);
+
     do
     {
         printf("Seleccione el porte (0-Chico, 1-Mediano, 2-Grande): ");
@@ -228,71 +317,143 @@ void mostrarListadoPerritosRecursivo(Perrito lista[], int valido, int i)
 }
 
 void filtrarPerritos(Perrito lista[], int validos)
+{
+    int opcion;
+    int criterio;
+    int i;
+    int encontrados = 0;
+
+    do
     {
-        int opcion;
-        int criterio;
-        int i = 0;
         printf("\n--- APLICAR FILTRO ---\n");
-        printf("\n1. Por Edad\n2. Por Temperamento\n3. Por Genero\n4. Por Porte\nElija criterio: \n");
+        printf("1. Por Edad\n2. Por Temperamento\n3. Por Genero\n4. Por Porte\nElija criterio: ");
+
+        opcion = -1;
         scanf("%i", &opcion);
 
-        switch(opcion)
+        if (opcion < 1 || opcion > 4)
         {
-        case 1:
-            printf("\nIngrese la edad exacta a buscar: \n");
-            scanf("%i", &criterio);
-            while( i<validos)
-            {
-                if(lista[i].edad == criterio)
-                {
-                    mostrarUnPerrito(lista[i]);
-                    i++;
-                }
-            }
-            break;
-        case 2:
-            printf("\nSeleccione (0-Calmado, 1-Jugueton, 2-Ansioso, 3-Agresivo, 4-Sociable):\n ");
-            scanf("%i", &criterio);
-            while( i<validos)
-            {
-                if(lista[i].temperamento == criterio)
-                {
-                    mostrarUnPerrito(lista[i]);
-                    i++;
-                }
-            }
-            break;
-        case 3:
-            printf("\nSeleccione (0-Macho, 1-Hembra): \n");
-            scanf("%i", &criterio);
-            while( i<validos)
-            {
-                if(lista[i].genero == criterio)
-                {
-                    mostrarUnPerrito(lista[i]);
-                    i++;
-                }
-            }
-            break;
-        case 4:
-            printf("\nSeleccione (0-Chico, 1-Mediano, 2-Grande):\n ");
-            scanf("%i", &criterio);
-            while( i<validos)
-            {
-                if(lista[i].porte == criterio)
-                {
-                    mostrarUnPerrito(lista[i]);
-                    i++;
-                }
-            }
-            break;
-        default:
-            printf("\nNo se encontraron perritos con el criterio seleccionado.\n");
+            printf("Opcion invalida. Intente de nuevo.\n");
         }
+    }
+    while (opcion < 1 || opcion > 4);
 
+    switch(opcion)
+    {
+    case 1:
+        do
+        {
+            printf("\nIngrese la edad exacta a buscar (0-30): ");
+            criterio = -1;
+            scanf("%i", &criterio);
+            getchar();
+
+            if (criterio < 0 || criterio > 30)
+            {
+                printf("Edad invalida. Intente de nuevo.\n");
+            }
+        }
+        while (criterio < 0 || criterio > 30);
+
+        i = 0;
+        while (i < validos)
+        {
+            if (lista[i].edad == criterio)
+            {
+                mostrarUnPerrito(lista[i]);
+                encontrados++;
+            }
+            i++;
+        }
+        break;
+
+    case 2:
+        do
+        {
+            printf("\nSeleccione (0-Calmado, 1-Jugueton, 2-Ansioso, 3-Agresivo, 4-Sociable): ");
+            criterio = -1;
+            scanf("%i", &criterio);
+            getchar();
+            if (criterio < 0 || criterio > 4)
+            {
+                printf("Criterio invalido. Intente de nuevo.\n");
+            }
+        }
+        while (criterio < 0 || criterio > 4);
+
+        i = 0;
+        while (i < validos)
+        {
+            if (lista[i].temperamento == criterio)
+            {
+                mostrarUnPerrito(lista[i]);
+                encontrados++;
+            }
+            i++;
+        }
+        break;
+
+    case 3:
+        do
+        {
+            printf("\nSeleccione (0-Macho, 1-Hembra): ");
+            criterio = -1;
+            scanf("%i", &criterio);
+
+            if (criterio < 0 || criterio > 1)
+            {
+                printf("Criterio invalido. Intente de nuevo.\n");
+            }
+        }
+        while (criterio < 0 || criterio > 1);
+
+        i = 0;
+        while (i < validos)
+        {
+            if (lista[i].genero == criterio)
+            {
+                mostrarUnPerrito(lista[i]);
+                encontrados++;
+            }
+            i++;
+        }
+        break;
+
+    case 4:
+        do
+        {
+            printf("\nSeleccione (0-Chico, 1-Mediano, 2-Grande): ");
+            criterio = -1;
+            scanf("%i", &criterio);
+
+            if (criterio < 0 || criterio > 2)
+            {
+                printf("Criterio invalido. Intente de nuevo.\n");
+            }
+        }
+        while (criterio < 0 || criterio > 2);
+
+        i = 0;
+        while (i < validos)
+        {
+            if (lista[i].porte == criterio)
+            {
+                mostrarUnPerrito(lista[i]);
+                encontrados++;
+            }
+            i++;
+        }
+        break;
     }
 
-void mostrarInfoContacto(){
+    if (encontrados == 0)
+    {
+        printf("\nNo se encontraron perritos con el criterio seleccionado.\n");
+    }
+}
+
+void mostrarInfoContacto()
+{
     system("cls");
     printf("\n--------------------------------------------+");
     printf("\n|     INFORMACION DE CONTACTO               |");
