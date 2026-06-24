@@ -25,7 +25,12 @@ void menuGestionarAdopciones()
         printf("\n+-----------------------------------------+");
 
         printf("\nElige la opcion correcta: ");
-        scanf("%d", &opcion);
+        if (scanf("%d", &opcion) != 1)
+        {
+            printf("\nDebe ingresar un numero.\n");
+            while (getchar() != '\n');
+            opcion = -1;
+        }
         system("cls");
 
         switch(opcion)
@@ -69,7 +74,13 @@ void menuSeleccionAdopciones()
         printf("\n+-----------------------------------------+");
 
         printf("\nElige la opcion correcta: ");
-        scanf("%d", &opcion);
+        if (scanf("%d", &opcion) != 1)
+        {
+            printf("\nDebe ingresar un numero.\n");
+            while (getchar() != '\n');
+            opcion = -1;
+        }
+        system("cls");
 
         switch(opcion)
         {
@@ -96,7 +107,7 @@ void menuSeleccionAdopciones()
                     idPerrito = -1;
                 }
 
-                if(idPerrito <= 0)
+                if(idPerrito <= 0 && idPerrito != -1)
                 {
                     printf("\nEl ID debe ser mayor a 0.\n");
                 }
@@ -104,6 +115,7 @@ void menuSeleccionAdopciones()
             }
             while(idPerrito <= 0);
 
+            getchar();
             cargarObservacion(ARCHIVO_ADOPCIONES, idPerrito);
 
             break;
@@ -126,7 +138,7 @@ void menuSeleccionAdopciones()
                     idPerrito = -1;
                 }
 
-                if(idPerrito <= 0)
+                if(idPerrito <= 0 && idPerrito != -1)
                 {
                     printf("\nEl ID debe ser mayor a 0.\n");
                 }
@@ -172,6 +184,8 @@ void registrarAdopcion(char archPerritos[], char archAdoptantes[], char archAdop
     FILE *pfAdoptante = NULL;
     FILE *pfAdopcion = NULL;
 
+    long posicionRegistro=0;
+
     do
     {
         printf("\nIngrese ID del perrito a adoptar <3: ");
@@ -185,7 +199,7 @@ void registrarAdopcion(char archPerritos[], char archAdoptantes[], char archAdop
             idPerrito = -1;
         }
 
-        if(idPerrito <= 0)
+        if(idPerrito <= 0 && idPerrito != -1)
         {
             printf("\nEl ID debe ser mayor a 0.\n");
         }
@@ -207,7 +221,7 @@ void registrarAdopcion(char archPerritos[], char archAdoptantes[], char archAdop
             idAdoptante = -1;
         }
 
-        if(idAdoptante <= 0)
+        if(idAdoptante <= 0 && idAdoptante != -1)
         {
             printf("\nEl ID debe ser mayor a 0.\n");
         }
@@ -225,6 +239,8 @@ void registrarAdopcion(char archPerritos[], char archAdoptantes[], char archAdop
 
     if(exito)
     {
+        posicionRegistro = ftell(pfPerrito);
+
         while(!encontroPerrito && fread(&perri, sizeof(Perrito), 1, pfPerrito) > 0 )
         {
             if(perri.idPerrito == idPerrito)
@@ -235,6 +251,10 @@ void registrarAdopcion(char archPerritos[], char archAdoptantes[], char archAdop
                 {
                     printf("\nEse perrito ya fue adoptado.\n");
                     exito = 0;
+                }
+                else
+                {
+                    posicionRegistro = ftell(pfPerrito);
                 }
             }
         }
@@ -288,7 +308,7 @@ void registrarAdopcion(char archPerritos[], char archAdoptantes[], char archAdop
             nueva.observaciones[i].comentario[0] = '\0';
         }
 
-        fseek(pfPerrito, -(long)sizeof(Perrito), SEEK_CUR);
+        fseek(pfPerrito, posicionRegistro, SEEK_SET);
 
         perri.estado = 1;
 
@@ -359,7 +379,10 @@ void cargarObservacion(char archAdopciones[], int idPerrito)
                         {
                             printf("Ingrese observacion: ");
                             getchar();
-                            gets(aux.observaciones[i].comentario);
+                            fgets(aux.observaciones[i].comentario, sizeof(aux.observaciones[i].comentario), stdin);
+
+                            aux.observaciones[i].comentario[strcspn(aux.observaciones[i].comentario, "\n")] = '\0';
+
                             if (strlen(aux.observaciones[i].comentario) == 0)
                             {
                                 printf("\nEl campo no puede estar vacio. Intente de nuevo.\n");

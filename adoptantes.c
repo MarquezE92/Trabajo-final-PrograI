@@ -128,7 +128,9 @@ int buscarPosicionPorId(char nombreArchivo[], int idAdoptante){
 void eliminarAdoptante(char nombreArchivo[], int idAdoptante){
     system("cls");
     Adoptante aux;
-    int posicionAeliminar = buscarPosicionPorId(nombreArchivo, idAdoptante);
+    int encontrado = 0;
+
+    /*int posicionAeliminar = buscarPosicionPorId(nombreArchivo, idAdoptante);
     if(posicionAeliminar < 0){
     printf("\nNo se encontro el adoptante\n");
     } else {
@@ -149,7 +151,46 @@ void eliminarAdoptante(char nombreArchivo[], int idAdoptante){
             printf("\n || Se retiro al adoptante seleccinado del registro || \n");
             fclose(pf);
         }
+    }*/
+    FILE *archivo = fopen(nombreArchivo, "rb");
+    FILE *auxiliar = fopen("aux_adoptantes.dat", "wb");
+
+    if(archivo == NULL || auxiliar == NULL)
+    {
+        printf("\nError al abrir archivos");
     }
+    else
+    {
+        while(fread(&aux, sizeof(Adoptante), 1, archivo) > 0)
+        {
+            if(aux.idAdoptante == idAdoptante)
+            {
+                encontrado = 1;
+                printf("\nAdoptante encontrado:");
+                mostrarAdoptante(aux);
+            }
+            else
+            {
+                fwrite(&aux, sizeof(Adoptante), 1, auxiliar);
+            }
+        }
+
+        fclose(archivo);
+        fclose(auxiliar);
+
+        if(encontrado)
+        {
+            remove(nombreArchivo);
+            rename("aux_adoptantes.dat", nombreArchivo);
+            printf("\nSe retiro al adoptante seleccionado del registro \n");
+        }
+        else
+        {
+            remove("aux_adoptantes.dat");
+            printf("\nNo se encontro el adoptante con ID %d\n", idAdoptante);
+        }
+    }
+
 }
 
 Adoptante modificarAdoptante(Adoptante adoptante){
